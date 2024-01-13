@@ -54,7 +54,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('staff.index')}}" class="nav-link">
+                    <a href="{{ route('staff.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Staff
@@ -80,7 +80,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('deposite.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
                             Deposite
@@ -89,15 +89,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('deposite.create') }}" class="nav-link">
+                            <a href="{{ route('deposite.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>New Deposite</p>
+                                <p>List Deposite</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('deposite.index') }}" class="nav-link">
+                            <a href="{{ route('deposite.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>List Deposited Amount</p>
+                                <p>New Deposited</p>
                             </a>
                         </li>
 

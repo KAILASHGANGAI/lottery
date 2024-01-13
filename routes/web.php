@@ -37,8 +37,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-    Route::view('/deposite-list', 'deposite.show')->name('deposite.index');
-    Route::view('/deposite-create-new', 'deposite.add')->name('deposite.create');
 
 
     Route::view('/items-list', 'items.show')->name('items.index');

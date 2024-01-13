@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('customer_name');
             $table->string('customer_by')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->date('dod');
             $table->softDeletes();
             $table->timestamps();
         });

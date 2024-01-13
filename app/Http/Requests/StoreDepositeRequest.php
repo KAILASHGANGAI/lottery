@@ -11,7 +11,7 @@ class StoreDepositeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class StoreDepositeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'customer_id' => 'required|exists:customers,id',
+            'deposite_amount' => 'required|numeric|min:0',
+            'fine_amount' => 'numeric|min:0',
+            'customer_name' => 'required|string|max:255',
+            'customer_by' => 'nullable|string|max:255',
+            'dod' => 'required|date'
         ];
     }
 }

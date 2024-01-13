@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Deposite;
 use App\Http\Requests\StoreDepositeRequest;
 use App\Http\Requests\UpdateDepositeRequest;
+use App\Models\Customer;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class DepositeController extends Controller
@@ -15,7 +17,7 @@ class DepositeController extends Controller
     public function index()
     {
         $deposites = Deposite::all();
-        return view('deposite.index', compact('deposites'));
+        return view('deposites.index', compact('deposites'));
     }
 
     /**
@@ -23,7 +25,7 @@ class DepositeController extends Controller
      */
     public function create()
     {
-        return view('/deposite.add', compact('provisions'));
+        return view('/deposites.add');
     }
 
     /**
@@ -33,8 +35,7 @@ class DepositeController extends Controller
     {
         try {
             $deposite = new Deposite($request->all());
-
-
+            $deposite->user_id = Auth::id();
             $deposite->save();
             toast('Payment created successfully!', 'success');
 
@@ -59,7 +60,7 @@ class DepositeController extends Controller
      */
     public function edit(Deposite $deposite)
     {
-        return view('deposite.edit', compact('deposite'));
+        return view('deposites.edit', compact('deposite'));
     }
 
     /**
@@ -71,7 +72,6 @@ class DepositeController extends Controller
 
             $deposite->update($request->all());
             toast('deposite updated successfully!', 'success');
-
             return redirect()->route('deposite.index')->with('success', 'deposite updated successfully!');
         } catch (\Exception $e) {
             toast($e->getMessage(), 'error');

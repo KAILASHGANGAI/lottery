@@ -6,11 +6,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Staffs</h1>
+                    <h1>Deposites</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Staffs</a></li>
+                        <li class="breadcrumb-item"><a href="#">Deposites</a></li>
                         <li class="breadcrumb-item active">List</li>
                     </ol>
                 </div>
@@ -25,19 +25,17 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="row">
-                            <div class="col-sm-4">
-                                <img src="{{ asset($staff->photo) }}" class="img-fluid" alt="">
-                            </div>
+
                             <div class="col-sm-4 p-4">
-                                <h5> <strong>Name:</strong> {{ $staff->name }}</h5>
-                                <h6><strong>phone: </strong> {{ $staff->phone }}</h6>
-                                <span><strong>Provision:</strong> {{ $staff->provision_id }}</span> <br>
-                                <span><strong>District:</strong> {{ $staff->district_id }}</span> <br>
-                                <span><strong>Gaupalika:</strong> {{ $staff->gaupalika_id }}</span> <br>
-                                <span><strong>Ward:</strong> {{ $staff->ward_no }}</span> <br>
-                                <span><strong>Salary:</strong> {{ $staff->salary }}</span> <br>
-                                <span><strong>Gender:</strong> {{ $staff->gender }}</span> <br>
-                                <span><strong>Citizenship no:</strong> {{ $staff->citizenship_no }}</span> <br>
+                                <h5> <strong>Name:</strong> {{ $deposites->name }}</h5>
+                                <h6><strong>phone: </strong> {{ $deposites->phone }}</h6>
+                                <span><strong>Provision:</strong> {{ $deposites->provision_id }}</span> <br>
+                                <span><strong>District:</strong> {{ $deposites->district_id }}</span> <br>
+                                <span><strong>Gaupalika:</strong> {{ $deposites->gaupalika_id }}</span> <br>
+                                <span><strong>Ward:</strong> {{ $deposites->ward_no }}</span> <br>
+                                <span><strong>Salary:</strong> {{ $deposites->salary }}</span> <br>
+                                <span><strong>Gender:</strong> {{ $deposites->gender }}</span> <br>
+                                <span><strong>Citizenship no:</strong> {{ $deposites->citizenship_no }}</span> <br>
 
 
 
