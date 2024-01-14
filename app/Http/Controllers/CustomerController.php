@@ -106,10 +106,10 @@ class CustomerController extends Controller
                 $fileName = uniqid('photo_') . '.' . $uploadedFile->getClientOriginalExtension();
 
                 // Move the file to the public/photos directory
-                $uploadedFile->move(public_path('photos'), $fileName);
+                $uploadedFile->move(public_path('photos/customer'), $fileName);
 
                 // Set the photo attribute in the Customer model
-                $customer->photo = 'photos/' . $fileName;
+                $customer->photo = 'photos/customer/' . $fileName;
                 $customer->save();
             }
             toast('Customer updated successfully!', 'success');

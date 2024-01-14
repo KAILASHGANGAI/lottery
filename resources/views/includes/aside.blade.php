@@ -107,28 +107,51 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tree"></i>
                         <p>
-                            Lottery Items
+                            Products
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('items.create') }}" class="nav-link">
+                            <a href="{{ route('products.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Create Item</p>
+                                <p>List Products</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('items.index') }}" class="nav-link">
+                            <a href="{{ route('products.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>List Items</p>
+                                <p>Create new Product</p>
                             </a>
                         </li>
 
                     </ul>
                 </li>
 
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-tree"></i>
+                        <p>
+                            Categories
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('categories.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List categories</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('categories.create') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create new Product</p>
+                            </a>
+                        </li>
 
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

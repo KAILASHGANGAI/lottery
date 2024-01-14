@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Category;
+use Exception;
 
 class ProductController extends Controller
 {
@@ -13,7 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -21,7 +25,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('products.add', compact('categories'));
     }
 
     /**
@@ -29,7 +34,32 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        try {
+            $product = new Product($request->all());
+            // Handle image upload
+            if ($request->hasFile('image')) {
+                $uploadedFile = $request->file('image');
+
+                // Generate a unique name for the file
+                $fileName = uniqid('photo_') . '.' . $uploadedFile->getClientOriginalExtension();
+
+                // Move the file to the public/photos directory
+                $uploadedFile->move(public_path('photos/products'), $fileName);
+
+                // Set the photo attribute in the product model
+                $product->image = 'photos/products/' . $fileName;
+            }
+
+            $product->save();
+
+            toast('product created successfully!', 'success');
+
+            return redirect()->route('products.index')->with('success', 'product created successfully!');
+        } catch (\Exception $e) {
+            toast($e->getMessage(), 'error');
+
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -37,7 +67,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('products.show', compact('product'));
     }
 
     /**
@@ -45,7 +75,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+
+        return view('products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -53,7 +85,32 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        try {
+            $product->update($request->all());
+
+            // Handle image upload
+            if ($request->hasFile('image')) {
+                $uploadedFile = $request->file('image');
+
+                // Generate a unique name for the file
+                $fileName = uniqid('photo_') . '.' . $uploadedFile->getClientOriginalExtension();
+
+                // Move the file to the public/photos directory
+                $uploadedFile->move(public_path('photos/products'), $fileName);
+
+                // Set the photo attribute in the product model
+                $product->image = 'photos/products/' . $fileName;
+            }
+
+            $product->save();
+            toast('product Updated successfully!', 'success');
+
+            return redirect()->route('products.index')->with('success', 'Product updated successfully');
+        } catch (Exception $e) {
+            toast($e->getMessage(), 'error');
+
+            return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -61,6 +118,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return redirect()->route('products.index')->with('success', 'Product deleted successfully');
     }
 }
