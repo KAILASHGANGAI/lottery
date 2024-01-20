@@ -139,4 +139,19 @@ class CustomerController extends Controller
             return redirect()->back()->with('error', 'Error deleting customer. Please try again.');
         }
     }
+
+    public function getOptions($customerName)
+    {
+        // Fetch options based on the selected customer name
+        $customer = Customer::select('id', 'name')->where('name', 'like', '%' . $customerName . '%')->get();
+
+        if ($customer) {
+            // Assume 'options' is a field in the Customer model
+            $options = $customer;
+
+            return response()->json(['options' => $options]);
+        }
+
+        return response()->json(['options' => []]);
+    }
 }

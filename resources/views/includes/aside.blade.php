@@ -25,7 +25,15 @@
                     </a>
 
                 </li>
+                <li class="nav-item menu-open">
+                    <a href="{{ route('pos') }}" class="nav-link bg-success">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            POS
+                        </p>
+                    </a>
 
+                </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
 
@@ -151,6 +159,27 @@
                         </li>
 
                     </ul>
+
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-tree"></i>
+                        <p>
+                            Orders
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('orders.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List Orders</p>
+                            </a>
+                        </li>
+
+
+                    </ul>
+
                 </li>
             </ul>
         </nav>

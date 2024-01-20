@@ -19,8 +19,6 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-
-            {{ $errors }}
         </div>
         <div class="row">
             <!-- left column -->
@@ -34,7 +32,7 @@
                             <div class="row">
                                 <div class="col-sm-6 form-group">
                                     <label for="exampleInputEmail1">Customer Id Number</label>
-                                    <input type="text" name="customer_id" class="form-control"
+                                    <input type="text" id="customer_id" name="customer_id" class="form-control"
                                         value="{{ old('customer_id') }}" placeholder="Enter Id">
                                     @error('customer_id')
                                         <p class="error text-danger">{{ $message }}</p>
@@ -42,8 +40,10 @@
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <label for="exampleInputEmail1">Full Name</label>
-                                    <input type="text" name="customer_name" class="form-control"
+                                    <input type="text" id="customerName" name="customer_name" class="form-control"
                                         value="{{ old('customer_name') }}" placeholder="Enter Full name">
+                                    <div id="options-container"></div>
+
                                     @error('customer_name')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
@@ -110,55 +110,72 @@
         <!-- /.container-fluid -->
     </section>
 @endsection
+<style>
+    #options-container {
+        position: relative;
+        margin-top: -1px;
+        /* Align with the input field */
+        border: 1px solid #ccc;
+        border-top: none;
+        max-height: 150px;
+        overflow-y: auto;
+    }
 
+    .option {
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+</style>
 @section('script')
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        // Assume you have an AJAX function to fetch options
-        $('#getDistrictsByProvision').on('change', fetchDistricts);
-        $('#districtOptions').on('change', fetchGaupalika);
+        $(document).ready(function() {
+            var customerNameInput = $('#customerName');
+            var optionsContainer = $('#options-container');
+            var customer_id = $('#customer_id');
 
-        function fetchDistricts(e) {
-            var value = e.target.value;
-            $.ajax({
-                url: "/get-districts/" + value,
-                method: "GET",
-                success: function(response) {
+            customerNameInput.on('input', function() {
+                var customerName = $(this).val();
 
-                    $('#districtOptions').html("");
-                    if ($.trim(response)) {
-                        // Assuming response is an array of options
-                        $.each(response, function(index, option) {
-                            $('#districtOptions').append($('<option>', {
-                                value: option.id,
-                                text: option.districts_name
-                            }));
-                        });
-                    }
+                if (customerName.length >= 3) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/get-options/' + customerName,
+                        success: function(data) {
+                            optionsContainer.empty();
+
+                            // Append fetched options under the input field
+                            if (data.options.length > 0) {
+                                $.each(data.options, function(index, option) {
+                                    var optionDiv = $('<div>', {
+                                        class: 'option',
+                                        text: option.name +
+                                            "-" + option.id
+                                    });
+
+                                    optionDiv.on('click', function() {
+                                        // Set the value of the input field on option click
+                                        customerNameInput.val(option.name);
+                                        customer_id.val(option.id)
+                                        optionsContainer
+                                            .empty(); // Hide options after selection
+                                    });
+
+                                    optionsContainer.append(optionDiv);
+                                });
+                            } else {
+                                optionsContainer.append('<p>No options available.</p>');
+                            }
+                        }
+                    });
                 }
+                // Make an Ajax request to fetch options based on the input field value
+
             });
-        }
-
-        function fetchGaupalika(e) {
-            var value = e.target.value;
-            $.ajax({
-                url: "/get-gaupalaika/" + value,
-                method: "GET",
-                success: function(response) {
-
-                    $('#gaupalikaOptions').html("");
-                    if ($.trim(response)) {
-                        // Assuming response is an array of options
-                        $.each(response, function(index, option) {
-
-                            $('#gaupalikaOptions').append($('<option>', {
-                                value: option.id,
-                                text: option.gaupalika_name
-                            }));
-                        });
-                    }
-                }
-            });
-        }
+        });
     </script>
 @endsection

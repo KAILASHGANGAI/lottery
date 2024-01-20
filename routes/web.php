@@ -5,6 +5,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DepositeController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StaffController;
 use GuzzleHttp\Middleware;
@@ -31,10 +33,23 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::resource('/customer', CustomerController::class);
+    Route::get('/get-options/{customerName}', [CustomerController::class, 'getOptions']);
+
     Route::resource('/staff', StaffController::class);
     Route::resource('/deposite', DepositeController::class);
     Route::resource('/products', ProductController::class);
+    Route::post('/products-search', [ProductController::class, 'search'])->name('product.search');
     Route::resource('categories', CategoryController::class);
+    Route::resource('orders', OrderController::class);
+    Route::get('/point-of-sale', [PosController::class, 'index'])->name('pos');
+    Route::get('/getcard', [PosController::class, 'getcard'])->name('getcard');
+    Route::post('/add-to-cart/{product}', [PosController::class, 'addToCart'])->name('addToCart');
+    Route::post('/update-quantity/{id}', [PosController::class, 'quantityUpdate']);
+    Route::delete('/remove-from-cart/{id}', [PosController::class, 'removeFromCart']);
+    Route::post('/checkout', [PosController::class, 'checkout'])->name('checkout');
+    Route::get('/checkout/bill', [PosController::class, 'showBill']);
+
+
 
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

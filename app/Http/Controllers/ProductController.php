@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use Exception;
 
+use Illuminate\Http\Request;
+
 class ProductController extends Controller
 {
     /**
@@ -121,5 +123,18 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('products.index')->with('success', 'Product deleted successfully');
+    }
+    public function search(Request $request)
+    {
+
+        try {
+            $query = $request->searchitem;
+            // Perform a simple search on product_name
+            $products = Product::where('product_name', 'like', "%$query%")->get();
+
+            return  response()->json($products);
+        } catch (Exception $e) {
+            return redirect()->json(['error' => $e->getMessage()]);
+        }
     }
 }
