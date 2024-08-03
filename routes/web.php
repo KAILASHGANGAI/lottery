@@ -8,6 +8,7 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StaffController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
@@ -47,10 +48,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/update-quantity/{id}', [PosController::class, 'quantityUpdate']);
     Route::delete('/remove-from-cart/{id}', [PosController::class, 'removeFromCart']);
     Route::post('/checkout', [PosController::class, 'checkout'])->name('checkout');
-    Route::get('/checkout/bill', [PosController::class, 'showBill']);
-
-
-
-
+    Route::get('/checkout/bill', [PosController::class, 'showBill'])->name('checkout.bill');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::resource('settings', SettingController::class);
+
 });

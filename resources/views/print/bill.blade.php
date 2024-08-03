@@ -68,19 +68,30 @@
     <a class="link" href="{{ url()->previous() }}">Go Back</a>
 
     <!-- Company Logo and Details -->
-    <div class="company-details text-center">
-        <img src="{{ asset('path-to-your-company-logo.png') }}" alt="Company Logo" class="company-logo">
-        <h4>Your Company Name</h4>
-        <span>Your Company Address</span> <br>
-        <span>Your Company Phone</span>
-        <!-- Add more company details as needed -->
+
+    <div class="company-details1 row">
+        <div class="col-sm-6 mx-auto d-flex">
+            <div class="">
+                @if ($owner->logo)
+                    <img src="{{ asset($owner->logo) }}" alt="Company Logo" style="width: 80px; height:80px"
+                        class="company-logo">
+                @endif
+            </div>
+            <div class="text-center px-4">
+                <h4>{{ $owner->company_name }}</h4>
+                <span>{{ $owner->address }}</span> <br>
+                <span>{{ $owner->contact }}</span>
+                <!-- Add more company details as needed -->
+                <h6 class="text-center">Checkout Bill</h6>
+
+            </div>
+        </div>
     </div>
 
 
     <!-- Bill Content -->
     <div class="bill-content">
         <!-- Include the actual content of the bill -->
-        <h6 class="text-center">Checkout Bill</h6>
         <!-- Add bill details here -->
         <div class="d-flex justify-content-between flex-row px-4">
             <div>
@@ -118,8 +129,7 @@
                     </tr>
                 @endforeach
                 <tr>
-                    <td colspan="2" class="text-center"> Total </td>
-                    <td>{{ $order->quantity }}</td>
+                    <td colspan="3" class="text-center"> Total </td>
                     <td colspan="2" class="text-center">Rs. {{ $order->total }}</td>
                 </tr>
             </tbody>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Card;
 use App\Models\Order;
 use App\Models\OrderDetails;
+use App\Models\Owner;
 use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
@@ -129,11 +130,12 @@ class PosController extends Controller
     }
     public function showBill(Request $request)
     {
+        $owner = Owner::find(1);
         $orderId = $request->input('order');
         $order = Order::with('orderDetails')->find($orderId);
         if (!$order) {
             abort(404, 'Order not found');
         }
-        return view('print.bill', ['order' => $order]);
+        return view('print.bill', ['order' => $order, 'owner'=>$owner]);
     }
 }
