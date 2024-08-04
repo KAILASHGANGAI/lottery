@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('cid')->nullable();
             $table->string('phone')->nullable();
             $table->foreignId('provision_id');
             $table->foreignId('district_id');

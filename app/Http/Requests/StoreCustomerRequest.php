@@ -23,6 +23,7 @@ class StoreCustomerRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'cid' => 'required|string|max:255',
             'phone' => 'nullable|string|max:20',
             'provision_id' => 'required|exists:provisions,id',
             'district_id' => 'required|exists:districts,id',
