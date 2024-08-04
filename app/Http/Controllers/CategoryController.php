@@ -34,6 +34,7 @@ class CategoryController extends Controller
         ]);
 
         Category::create($request->all());
+        toast('Category created successfully', 'success');
 
         return redirect()->back()->with('success', 'Category created successfully');
     }
@@ -64,6 +65,7 @@ class CategoryController extends Controller
         ]);
 
         $category->update($request->all());
+        toast('Category updated successfully', 'success');
 
         return redirect()->route('categories.index')->with('success', 'Category updated successfully');
     }

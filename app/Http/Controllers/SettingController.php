@@ -46,6 +46,7 @@ class SettingController extends Controller
         }
 
         Owner::create($request->all());
+        toast('Owner created successfully', 'success');
 
         return redirect()->route('owners.create')->with('success', 'Owner created successfully.');
     }
@@ -89,10 +90,12 @@ class SettingController extends Controller
             $owner = Owner::find($id);
      
             $owner->update($data);
-
+            toast('Owner updated successfully.!', 'success');
 
             return back()->with('success', 'Owner updated successfully.');
         } catch (Exception $e) {
+            toast('Someting went Wrong !!', 'error');
+
             return back()->withInput()->with('error', 'Something went Wrong');
         }
     }

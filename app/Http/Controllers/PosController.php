@@ -62,8 +62,6 @@ class PosController extends Controller
                 ]);
             }
 
-
-
             toast("Product added to card.", 'success');
             return response()->json(['message' => "product is ready to sale"]);
         } catch (Exception $e) {

@@ -131,7 +131,7 @@ class StaffController extends Controller
             return redirect()->route('staff.index')->with('success', 'staff deleted successfully!');
         } catch (\Exception $e) {
             Log::error('Error while deleting staff: ' . $e->getMessage());
-            toast('Error deleting staff. Please try again.', 'error');
+            toast('Something went Wrong !!', 'error');
 
             return redirect()->back()->with('error', 'Error deleting staff. Please try again.');
         }
