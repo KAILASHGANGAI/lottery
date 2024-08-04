@@ -40,7 +40,14 @@
                                     @error('name')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
-
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label>Customer Id</label>
+                                    <input type="text" name="cid" class="form-control" placeholder="Enter customer Id"
+                                        value="{{ old('cid') }}">
+                                    @error('cid')
+                                        <p class="error text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="col-sm-4 form-group">
                                     <label for="exampleInputPassword1">Phone Number</label>
