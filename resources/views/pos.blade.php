@@ -75,7 +75,7 @@
                                 <label for="exampleInputEmail1">Customer Name</label>
                                 <input type="text" id="customerName" name="customer_name" class="form-control"
                                     value="{{ old('customer_name') }}" placeholder="Enter Full name">
-                                <input type="hidden" id="customer_id" value="" name="customer_id">
+                                <input type="hidden" id="customer_id" value="" name="customer_id" required>
                                 <div id="options-container"></div>
 
                                 @error('customer_name')
