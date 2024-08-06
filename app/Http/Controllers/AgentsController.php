@@ -37,6 +37,7 @@ class AgentsController extends Controller
             toast('Agent created successfully!', 'success');
             return back()->with('success', 'Added successfully');
         } catch (Exception $th) {
+            dd($th);
                 return back()->withInput()->with('error', 'Failed To Create. !!');
         }
     }
