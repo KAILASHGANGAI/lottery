@@ -38,10 +38,10 @@
                                 <span><strong>Per. Gaupalika:</strong> {{ ucfirst($customer->gaupalika->gaupalika_name) }}</span> <br>
                                 <span><strong>Per. Ward:</strong> {{ $customer->ward_no }}</span> <br>
 
-                                <span><strong>Temp. Provision:</strong> {{ ucfirst($customer->tempprovision->provision_name) }}</span> <br>
-                                <span><strong>Temp. District:</strong> {{ ucfirst($customer->tempdistrict->districts_name) }}</span> <br>
-                                <span><strong>Temp. Gaupalika:</strong> {{ ucfirst($customer->tempgaupalika->gaupalika_name) }}</span> <br>
-                                <span><strong>Temp. Ward:</strong> {{ $customer->temp_ward_no }}</span> <br>
+                                <span><strong>Temp. Provision:</strong> {{ ucfirst(@$customer->tempprovision->provision_name) }}</span> <br>
+                                <span><strong>Temp. District:</strong> {{ ucfirst(@$customer->tempdistrict->districts_name) }}</span> <br>
+                                <span><strong>Temp. Gaupalika:</strong> {{ ucfirst(@$customer->tempgaupalika->gaupalika_name) }}</span> <br>
+                                <span><strong>Temp. Ward:</strong> {{ @$customer->temp_ward_no }}</span> <br>
 
                                 <span><strong>Lottery Amount:</strong> {{ $customer->lottery_amount }}</span> <br>
                                 <span><strong>Salary:</strong> {{ $customer->salary }}</span> <br>
