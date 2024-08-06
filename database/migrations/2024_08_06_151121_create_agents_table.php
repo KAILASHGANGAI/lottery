@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('agents', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('phone');
             $table->float('percentage')->default(0);
             $table->integer('customer_count')->default(0);
             $table->float('amount')->nullable();
             $table->string('reg_date')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
         });

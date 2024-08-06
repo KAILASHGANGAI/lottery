@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Agents;
 use App\Http\Requests\StoreAgentsRequest;
 use App\Http\Requests\UpdateAgentsRequest;
+use Exception;
 
 class AgentsController extends Controller
 {
@@ -13,7 +14,8 @@ class AgentsController extends Controller
      */
     public function index()
     {
-        //
+        $agents = Agents::all();
+        return view('agents.index', compact('agents'));
     }
 
     /**
@@ -21,7 +23,7 @@ class AgentsController extends Controller
      */
     public function create()
     {
-        //
+        return view('agents.add');
     }
 
     /**
@@ -29,7 +31,14 @@ class AgentsController extends Controller
      */
     public function store(StoreAgentsRequest $request)
     {
-        //
+        try {
+           $agents =  new Agents($request->all());
+           $agents->save();
+            toast('Agent created successfully!', 'success');
+            return back()->with('success', 'Added successfully');
+        } catch (Exception $th) {
+                return back()->withInput()->with('error', 'Failed To Create. !!');
+        }
     }
 
     /**
@@ -37,30 +46,42 @@ class AgentsController extends Controller
      */
     public function show(Agents $agents)
     {
-        //
+        return view('agents.show', compact('agents'));
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Agents $agents)
+    public function edit($id)
     {
-        //
+        $agents = Agents::find($id);
+        return view('agents.edit', compact('agents'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAgentsRequest $request, Agents $agents)
+    public function update(UpdateAgentsRequest $request,  $id)
     {
-        //
+        $agents = Agents::find($id);
+        $agents->update($request->all());
+        toast('Agents updated successfully!', 'success');
+
+        return redirect()->route('agents.index')->with('success', 'agents updated successfully!');
+    
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Agents $agents)
+    public function destroy($id)
     {
-        //
+        Agents::find($id)->delete();
+        toast('agents deleted successfully!', 'success');
+
+        return redirect()->route('agents.index')->with('success', 'agents deleted successfully!');
+  
     }
 }

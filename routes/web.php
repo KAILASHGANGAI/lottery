@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgentsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
@@ -51,5 +52,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/checkout/bill', [PosController::class, 'showBill'])->name('checkout.bill');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('settings', SettingController::class);
+    Route::resource('agents', AgentsController::class);
 
 });

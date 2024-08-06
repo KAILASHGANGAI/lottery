@@ -11,7 +11,7 @@ class UpdateAgentsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateAgentsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'phone' => 'nullable|string|max:20',
+            'percentage' => 'nullable',
+            'reg_date' => 'nullable|string|max:255',
         ];
     }
 }
