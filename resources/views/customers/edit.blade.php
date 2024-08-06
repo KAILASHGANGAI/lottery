@@ -103,7 +103,7 @@
                                 <div class="col-sm-3 form-group">
                                     <label for="exampleInputPassword1">Photo:</label> <br>
                                     <input type="file" name="photo" />
-                                    <img src="{{ asset($customer->photo) }}" alt="">
+                                    <img style="width: 50px " src="{{ asset($customer->photo) }}" alt="">
                                     @error('photo')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
