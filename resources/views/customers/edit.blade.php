@@ -102,12 +102,9 @@
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <label for="exampleInputPassword1">Photo:</label> <br>
-                                    <div class="d-flex">
-                                        <input type="file" name="photo" />
-                                        <img style="width: 50px " src="{{ asset($customer->photo) }}" alt="">
-                                       
-                                    </div>
-                                   @error('photo')
+                                    <input type="file" name="photo" />
+                                    <img style="width: 50px " src="{{ asset($customer->photo) }}" alt="">
+                                    @error('photo')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
 
