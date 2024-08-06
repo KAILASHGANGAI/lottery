@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Agents;
+use App\Http\Requests\StoreAgentsRequest;
+use App\Http\Requests\UpdateAgentsRequest;
+use Exception;
+
+class AgentsController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $agents = Agents::all();
+        return view('agents.index', compact('agents'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('agents.add');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreAgentsRequest $request)
+    {
+        try {
+           $agents =  new Agents($request->all());
+           $agents->save();
+            toast('Agent created successfully!', 'success');
+            return back()->with('success', 'Added successfully');
+        } catch (Exception $th) {
+                return back()->withInput()->with('error', 'Failed To Create. !!');
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Agents $agents)
+    {
+        return view('agents.show', compact('agents'));
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        $agents = Agents::find($id);
+        return view('agents.edit', compact('agents'));
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateAgentsRequest $request,  $id)
+    {
+        $agents = Agents::find($id);
+        $agents->update($request->all());
+        toast('Agents updated successfully!', 'success');
+
+        return redirect()->route('agents.index')->with('success', 'agents updated successfully!');
+    
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        Agents::find($id)->delete();
+        toast('agents deleted successfully!', 'success');
+
+        return redirect()->route('agents.index')->with('success', 'agents deleted successfully!');
+  
+    }
+}
