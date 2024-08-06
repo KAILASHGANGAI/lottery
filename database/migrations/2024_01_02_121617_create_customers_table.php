@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('hf_name')->nullable(); // husband or wife name
             $table->string('no_of_members')->nullable(); // husband or wife name
             $table->string("refered_by")->nullable();
+            $table->string("reg_date")->nullable();
             $table->softDeletes();
 
             $table->timestamps();

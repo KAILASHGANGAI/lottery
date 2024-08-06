@@ -34,18 +34,22 @@
     <link rel="stylesheet" href="{{ asset('../js/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('../js/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('../js/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-
+    <link href="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/css/nepali.datepicker.v4.0.4.min.css"
+        rel="stylesheet" type="text/css" />
+    <script src="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v4.0.4.min.js"
+        type="text/javascript"></script>
 </head>
 <style>
-    option{
+    option {
         text-transform: capitalize;
     }
 </style>
+
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
         @include('../includes/nav')
-        @include('../includes/aside')   
+        @include('../includes/aside')
 
         <!-- Main Sidebar Container -->
         <!-- Content Wrapper. Contains page content -->
@@ -123,6 +127,10 @@
                 "responsive": true,
             });
         });
+        window.onload = function() {
+            var mainInput = document.getElementById("nepali-datepicker");
+            mainInput.nepaliDatePicker();
+        };
     </script>
 </body>
 

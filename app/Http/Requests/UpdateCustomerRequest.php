@@ -48,6 +48,8 @@ class UpdateCustomerRequest extends FormRequest
             'temp_district_id' => 'nullable|string|max:255',
             'temp_gaupalika_id' => 'nullable|string|max:255',
             'temp_ward_no' => 'nullable|string|max:255',
+            'reg_date' => 'nullable|string|max:255',
+
         ];
     }
 }

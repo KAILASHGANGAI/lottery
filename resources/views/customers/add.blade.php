@@ -35,7 +35,7 @@
                         <div class="card-body">
                             <h1 class="card-title text-primary">Personal Details</h1> <br>
                             <div class="row">
-                                <div class="col-sm-4 form-group">
+                                <div class="col-sm-3 form-group">
                                     <label>Full Name</label>
                                     <input type="text" name="name" class="form-control" placeholder="Enter Full name"
                                         value="{{ old('name') }}">
@@ -43,7 +43,7 @@
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                <div class="col-sm-4 form-group">
+                                <div class="col-sm-3 form-group">
                                     <label>Customer Id</label>
                                     <input type="text" name="cid" class="form-control"
                                         placeholder="Enter customer Id" value="{{ old('cid') }}">
@@ -51,7 +51,7 @@
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                <div class="col-sm-4 form-group">
+                                <div class="col-sm-3 form-group">
                                     <label for="exampleInputPassword1">Phone Number</label>
                                     <input type="text" name="phone" class="form-control" placeholder="Phone Number"
                                         value="{{ old('phone') }}">
@@ -59,7 +59,14 @@
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                             
+                                <div class="col-sm-3 form-group">
+                                    <label for="exampleInputPassword1">Reg. Date</label>
+                                    <input type="text" class="form-control" name="reg_date" id="nepali-datepicker" placeholder="Select Nepali
+                                    Date"/>
+                                    @error('reg_date')
+                                        <p class="error text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
                                 <div class="col-md-3 form-group">
                                     <div class="">
                                         <label>Gender</label>
@@ -223,7 +230,7 @@
                             {{-- <hr>
                             <h1 class="card-title text-success">Employment Details</h1> <br>
                             <div class="row">
-                                <div class="col-sm-4 form-group">
+                                <div class="col-sm-3 form-group">
                                     <label>Occupation</label>
                                     <input type="text" name="occupation" class="form-control"
                                         placeholder="Occupation" value="{{ old('occupation') }}">

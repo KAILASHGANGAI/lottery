@@ -23,7 +23,7 @@ class StoreCustomerRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'cid' => 'required|string|max:255',
+            'cid' => 'required|string|max:255|unique:customers,cid',
             'phone' => 'nullable|string|max:20',
             'provision_id' => 'required|exists:provisions,id',
             'district_id' => 'required|exists:districts,id',
@@ -48,6 +48,7 @@ class StoreCustomerRequest extends FormRequest
             'temp_district_id' => 'nullable|string|max:255',
             'temp_gaupalika_id' => 'nullable|string|max:255',
             'temp_ward_no' => 'nullable|string|max:255',
+            'reg_date' => 'nullable|string|max:255',
             
         ];
     }

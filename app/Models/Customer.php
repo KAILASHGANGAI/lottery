@@ -36,6 +36,7 @@ class Customer extends Model
         'temp_district_id',
         'temp_gaupalika_id',
         'temp_ward_no',
+        'reg_date',
     ];
     public function provision()
     {
