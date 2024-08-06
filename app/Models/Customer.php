@@ -28,7 +28,14 @@ class Customer extends Model
         'mother_name',
         'hf_name',
         'no_of_members',
-        'refered_by'
+        'refered_by',
+        'nominee_holder_name',
+        'nominee_relation',
+        'nominee_phone',
+        'temp_provision_id',
+        'temp_district_id',
+        'temp_gaupalika_id',
+        'temp_ward_no',
     ];
     public function provision()
     {
@@ -41,5 +48,18 @@ class Customer extends Model
     public function gaupalika()
     {
         return $this->belongsTo(Gaupalika::class);
+    }
+
+    public function tempprovision()
+    {
+        return $this->belongsTo(Provision::class, 'temp_provision_id', 'id');
+    }
+    public function tempdistrict()
+    {
+        return $this->belongsTo(District::class, 'temp_district_id', 'id');
+    }
+    public function tempgaupalika()
+    {
+        return $this->belongsTo(Gaupalika::class, 'temp_gaupalika_id', 'id');
     }
 }

@@ -10,8 +10,10 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Customers</a></li>
-                        <li class="breadcrumb-item active">List</li>
+                        <li class="breadcrumb-item"><a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
+                        </li>
+                        <li class="breadcrumb-item active"><a href="/" class="btn btn-secondary">Cancle</a>
+                        </li>
                     </ol>
                 </div>
             </div>
@@ -31,10 +33,16 @@
                             <div class="col-sm-4 p-4">
                                 <h5> <strong>Name:</strong> {{ $customer->name }}</h5>
                                 <h6><strong>phone: </strong> {{ $customer->phone }}</h6>
-                                <span><strong>Provision:</strong> {{ $customer->provision_id }}</span> <br>
-                                <span><strong>District:</strong> {{ $customer->district_id }}</span> <br>
-                                <span><strong>Gaupalika:</strong> {{ $customer->gaupalika_id }}</span> <br>
-                                <span><strong>Ward:</strong> {{ $customer->ward_no }}</span> <br>
+                                <span><strong>Per. Provision:</strong> {{ ucfirst($customer->provision->provision_name) }}</span> <br>
+                                <span><strong>Per. District:</strong> {{ ucfirst($customer->district->districts_name) }}</span> <br>
+                                <span><strong>Per. Gaupalika:</strong> {{ ucfirst($customer->gaupalika->gaupalika_name) }}</span> <br>
+                                <span><strong>Per. Ward:</strong> {{ $customer->ward_no }}</span> <br>
+
+                                <span><strong>Temp. Provision:</strong> {{ ucfirst($customer->tempprovision->provision_name) }}</span> <br>
+                                <span><strong>Temp. District:</strong> {{ ucfirst($customer->tempdistrict->districts_name) }}</span> <br>
+                                <span><strong>Temp. Gaupalika:</strong> {{ ucfirst($customer->tempgaupalika->gaupalika_name) }}</span> <br>
+                                <span><strong>Temp. Ward:</strong> {{ $customer->temp_ward_no }}</span> <br>
+
                                 <span><strong>Lottery Amount:</strong> {{ $customer->lottery_amount }}</span> <br>
                                 <span><strong>Salary:</strong> {{ $customer->salary }}</span> <br>
 

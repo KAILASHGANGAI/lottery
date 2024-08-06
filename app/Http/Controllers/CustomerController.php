@@ -40,6 +40,7 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
+       # dd($request->all());
         try {
             $customer = new Customer($request->all());
             // Handle image upload
@@ -59,7 +60,7 @@ class CustomerController extends Controller
             $customer->save();
             toast('Customer created successfully!', 'success');
 
-            return redirect()->route('customer.index')->with('success', 'Customer created successfully!');
+            return back()->with('success', 'Customer created successfully!');
         } catch (\Exception $e) {
             toast($e->getMessage(), 'error');
 
@@ -84,10 +85,17 @@ class CustomerController extends Controller
         $provision_id = $customer->provision_id;
         $district_id = $customer->district_id;
 
+        $temp_provision_id = $customer->temp_provision_id;
+        $temp_district_id = $customer->temp_district_id;
+
         $districts = District::select(['id', 'districts_name'])->where('provision_id', $provision_id)->get();
         $gaupalikas = Gaupalika::select(['id', 'gaupalika_name'])->where('district_id', $district_id)->get();
 
-        return view('customers.edit', compact('customer', 'provisions', 'districts', 'gaupalikas'));
+        $tempdistricts = District::select(['id', 'districts_name'])->where('provision_id', $temp_provision_id)->get();
+        $tempgaupalikas = Gaupalika::select(['id', 'gaupalika_name'])->where('district_id', $temp_district_id)->get();
+
+        return view('customers.edit', compact(
+            'customer', 'provisions', 'districts', 'gaupalikas', 'tempdistricts', 'tempgaupalikas'));
     }
 
     /**

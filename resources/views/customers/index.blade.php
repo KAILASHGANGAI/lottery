@@ -10,8 +10,10 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Customers</a></li>
-                        <li class="breadcrumb-item active">List</li>
+                        <li class="breadcrumb-item"><a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
+                        </li>
+                        <li class="breadcrumb-item active"><a href="/" class="btn btn-secondary">Cancle</a>
+                        </li>
                     </ol>
                 </div>
             </div>
@@ -31,6 +33,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Full Name</th>
+                                        <th> CustomerID</th>
                                         <th>Contact No</th>
                                         <th>Provision</th>
                                         <th>District</th>
@@ -44,11 +47,12 @@
                                     @foreach ($customers as $key => $item)
                                         <tr>
                                             <td>{{ ++$key }}</td>
-                                            <td>{{ $item->name }} </td>
+                                            <td>{{ ucfirst($item->name) }} </td>
+                                            <td>{{ $item->cid }} </td>
                                             <td>{{ $item->phone }}</td>
-                                            <td> {{ $item->provision->provision_name }}</td>
-                                            <td>{{ $item->district->districts_name }}</td>
-                                            <td>{{ $item->gaupalika->gaupalika_name }}</td>
+                                            <td> {{ ucfirst($item->provision->provision_name) }}</td>
+                                            <td>{{ ucfirst($item->district->districts_name) }}</td>
+                                            <td>{{ ucfirst($item->gaupalika->gaupalika_name) }}</td>
                                             <td>{{ $item->ward_no }}</td>
                                             <td>
                                                 <a class="btn btn-primary btn-sm"
@@ -86,6 +90,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Full Name</th>
+                                        <th> CustomerID</th>
                                         <th>Contact No</th>
                                         <th>Provision</th>
                                         <th>District</th>

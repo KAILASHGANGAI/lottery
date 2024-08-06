@@ -36,12 +36,16 @@
     <link rel="stylesheet" href="{{ asset('../js/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
 </head>
-
+<style>
+    option{
+        text-transform: capitalize;
+    }
+</style>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
         @include('../includes/nav')
-        @include('../includes/aside')
+        @include('../includes/aside')   
 
         <!-- Main Sidebar Container -->
         <!-- Content Wrapper. Contains page content -->

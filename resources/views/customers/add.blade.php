@@ -8,8 +8,10 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Customers</a></li>
-                        <li class="breadcrumb-item active">add</li>
+                        <li class="breadcrumb-item"><a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
+                        </li>
+                        <li class="breadcrumb-item active"><a href="/" class="btn btn-secondary">Cancle</a>
+                        </li>
                     </ol>
                 </div>
             </div>
@@ -43,8 +45,8 @@
                                 </div>
                                 <div class="col-sm-4 form-group">
                                     <label>Customer Id</label>
-                                    <input type="text" name="cid" class="form-control" placeholder="Enter customer Id"
-                                        value="{{ old('cid') }}">
+                                    <input type="text" name="cid" class="form-control"
+                                        placeholder="Enter customer Id" value="{{ old('cid') }}">
                                     @error('cid')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
@@ -57,60 +59,8 @@
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                <div class="col-md-4 form-group">
-                                    <div class="">
-                                        <label>Provision</label>
-                                        <select id="getDistrictsByProvision" name="provision_id"
-                                            class="form-control select2" style="width: 100%;"
-                                            value="{{ old('provision_id') }}">
-                                            <option selected="selected">Select Provisions</option>
-                                            @foreach ($provisions as $item)
-                                                <option value="{{ $item->id }}">
-                                                    {{ $item->provision_name }}</option>
-                                            @endforeach
-
-                                        </select>
-                                        @error('provision_id')
-                                            <p class="error text-danger">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <div class="">
-                                        <label>District</label>
-                                        <select id="districtOptions" name="district_id" class="form-control select2"
-                                            style="width: 100%;" value="{{ old('district_id') }}">
-                                            <option selected="selected">Select District</option>
-
-                                        </select>
-                                        @error('district_id')
-                                            <p class="error text-danger">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <div class="">
-                                        <label>Gaupalika</label>
-                                        <select id="gaupalikaOptions" name="gaupalika_id" class="form-control select2"
-                                            value="{{ old('gaupalika_id') }}" style="width: 100%;">
-                                            <option selected="selected">Select Gaupalika</option>
-
-                                        </select>
-                                        @error('gaupalika_id')
-                                            <p class="error text-danger">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4 form-group">
-                                    <label for="exampleInputPassword1">Ward No.:</label>
-                                    <input type="number" name="ward_no" class="form-control" placeholder="Ward No."
-                                        value="{{ old('ward_no') }}">
-                                    @error('ward_no')
-                                        <p class="error text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <div class="col-md-4 form-group">
+                             
+                                <div class="col-md-3 form-group">
                                     <div class="">
                                         <label>Gender</label>
                                         <select class="form-control select2" name="gender" style="width: 100%;"
@@ -126,7 +76,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-sm-4 form-group">
+                                <div class="col-sm-3 form-group">
                                     <label for="exampleInputPassword1">Amount Of Lottery:</label>
                                     <input type="number" name="lottery_amount" class="form-control" placeholder="Amount."
                                         value="{{ old('lottery_amount') }}">
@@ -134,15 +84,8 @@
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                <div class="col-sm-4 form-group">
-                                    <label for="exampleInputPassword1">Photo:</label> <br>
-                                    <input type="file" name="photo" />
-                                    @error('photo')
-                                        <p class="error text-danger">{{ $message }}</p>
-                                    @enderror
-
-                                </div>
-                                <div class="col-sm-4 form-group">
+                              
+                                <div class="col-sm-3 form-group">
                                     <label for="exampleInputPassword1">CitizenShip Number:</label>
                                     <input type="text" class="form-control" name="citizenship_no"
                                         value="{{ old('citizenship_no') }}" />
@@ -150,9 +93,134 @@
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                            </div>
+                                <div class="col-sm-3 form-group">
+                                    <label for="exampleInputPassword1">Photo:</label> <br>
+                                    <input type="file" name="photo" />
+                                    @error('photo')
+                                        <p class="error text-danger">{{ $message }}</p>
+                                    @enderror
 
+                                </div>
+                            </div>
                             <hr>
+                            <h1 class="card-title text-success">Permanent Address Details</h1> <br>
+
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <div class="">
+                                        <label>Provision</label>
+                                        <select id="getDistrictsByProvision" name="provision_id"
+                                            class="form-control select2" style="width: 100%;"
+                                            value="{{ old('provision_id') }}">
+                                            <option selected="selected">Select Provisions</option>
+                                            @foreach ($provisions as $item)
+                                                <option value="{{ $item->id }}">
+                                                    {{ ucfirst($item->provision_name) }}</option>
+                                            @endforeach
+
+                                        </select>
+                                        @error('provision_id')
+                                            <p class="error text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <div class="">
+                                        <label>District</label>
+                                        <select id="districtOptions" name="district_id" class="form-control select2"
+                                            style="width: 100%;" value="{{ old('district_id') }}">
+                                            <option selected="selected">Select District</option>
+
+                                        </select>
+                                        @error('district_id')
+                                            <p class="error text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <div class="">
+                                        <label>Gaupalika</label>
+                                        <select id="gaupalikaOptions" name="gaupalika_id" class="form-control select2"
+                                            value="{{ old('gaupalika_id') }}" style="width: 100%;">
+                                            <option selected="selected">Select Gaupalika</option>
+
+                                        </select>
+                                        @error('gaupalika_id')
+                                            <p class="error text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3 form-group">
+                                    <label for="exampleInputPassword1">Ward No.:</label>
+                                    <input id="ward_no" type="number" name="ward_no" class="form-control" placeholder="Ward No."
+                                        value="{{ old('ward_no') }}">
+                                    @error('ward_no')
+                                        <p class="error text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                            <hr>
+                            <h1 class="card-title text-success">Temporary Address Details 
+                                <input type="checkbox" name="sameaspermanent" id="same_as_permanent">
+                            </h1> Same As Above <br>
+
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <div class="">
+                                        <label>Provision</label>
+                                        <select id="tempgetDistrictsByProvision" name="temp_provision_id"
+                                            class="form-control select2" style="width: 100%;"
+                                            value="{{ old('temp_provision_id') }}">
+                                            <option selected="selected">Select Provisions</option>
+                                            @foreach ($provisions as $item)
+                                                <option value="{{ $item->id }}">
+                                                    {{ ucfirst($item->provision_name) }}</option>
+                                            @endforeach
+
+                                        </select>
+                                        @error('temp_provision_id')
+                                            <p class="error text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <div class="">
+                                        <label>District</label>
+                                        <select id="tempdistrictOptions" name="temp_district_id" class="form-control select2"
+                                            style="width: 100%;" value="{{ old('temp_district_id') }}">
+                                            <option selected="selected">Select District</option>
+
+                                        </select>
+                                        @error('temp_district_id')
+                                            <p class="error text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <div class="">
+                                        <label>Gaupalika</label>
+                                        <select id="tempgaupalikaOptions" name="temp_gaupalika_id" class="form-control select2"
+                                            value="{{ old('temp_gaupalika_id') }}" style="width: 100%;">
+                                            <option selected="selected">Select Gaupalika</option>
+
+                                        </select>
+                                        @error('temp_gaupalika_id')
+                                            <p class="error text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3 form-group">
+                                    <label for="exampleInputPassword1">Ward No.:</label>
+                                    <input  id="temp_ward_no" type="number" name="temp_ward_no" class="form-control" placeholder="Ward No."
+                                        value="{{ old('temp_ward_no') }}">
+                                    @error('temp_ward_no')
+                                        <p class="error text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                            {{-- <hr>
                             <h1 class="card-title text-success">Employment Details</h1> <br>
                             <div class="row">
                                 <div class="col-sm-4 form-group">
@@ -180,6 +248,37 @@
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
+
+                            </div> --}}
+                            <hr>
+                            <h1 class="card-title text-info">Noninee Details</h1> <br>
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label>Full  name:</label>
+                                    <input type="text" name="nominee_holder_name" class="form-control"
+                                        placeholder="Enter Full name" value="{{ old('nominee_holder_name') }}">
+                                    @error('nominee_holder_name')
+                                        <p class="error text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label for="exampleInputPassword1">Relation:</label>
+                                    <input type="text" name="nominee_relation" class="form-control"
+                                        placeholder="Relation" value="{{ old('nominee_relation') }}">
+                                    @error('nominee_relation')
+                                        <p class="error text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="col-sm-4 form-group">
+                                    <label for="exampleInputPassword1"> Phone:</label>
+                                    <input type="text" name="nominee_phone" class="form-control"
+                                        placeholder="nominee_phone" value="{{ old('nominee_phone') }}">
+                                    @error('nominee_phone')
+                                        <p class="error text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                          
 
                             </div>
                             <hr>
@@ -256,7 +355,7 @@
         // Assume you have an AJAX function to fetch options
         $('#getDistrictsByProvision').on('change', fetchDistricts);
         $('#districtOptions').on('change', fetchGaupalika);
-
+        
         function fetchDistricts(e) {
             var value = e.target.value;
             $.ajax({
@@ -270,7 +369,11 @@
                         $.each(response, function(index, option) {
                             $('#districtOptions').append($('<option>', {
                                 value: option.id,
-                                text: option.districts_name
+                                text: capitalizeFirstLetter(option.districts_name)
+                            }));
+                            $('#tempdistrictOptions').append($('<option>', {
+                                value: option.id,
+                                text: capitalizeFirstLetter(option.districts_name)
                             }));
                         });
                     }
@@ -292,12 +395,38 @@
 
                             $('#gaupalikaOptions').append($('<option>', {
                                 value: option.id,
-                                text: option.gaupalika_name
+                                text: capitalizeFirstLetter(option.gaupalika_name)
+                            }));
+                            $('#tempgaupalikaOptions').append($('<option>', {
+                                value: option.id,
+                                text: capitalizeFirstLetter(option.gaupalika_name)
                             }));
                         });
                     }
                 }
             });
         }
+
+        function capitalizeFirstLetter(string) {
+            return `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
+        }
+
+
+        $(document).ready(function() {
+        $('#same_as_permanent').change(function() {
+            
+            if (this.checked) {
+                $('#tempgetDistrictsByProvision').val($('#getDistrictsByProvision').val()).trigger('change');
+                $('#tempdistrictOptions').val($('#districtOptions').val()).trigger('change');
+                $('#tempgaupalikaOptions').val($('#gaupalikaOptions').val()).trigger('change');
+                $('#temp_ward_no').val($('#ward_no').val());
+            } else {
+                $('#tempgetDistrictsByProvision').val('').trigger('change');
+                $('#tempdistrictOptions').val('').trigger('change');
+                $('#tempgaupalikaOptions').val('').trigger('change');
+                $('#temp_ward_no').val('');
+            }
+        });
+    });
     </script>
 @endsection

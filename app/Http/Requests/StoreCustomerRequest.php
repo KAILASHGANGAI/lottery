@@ -41,6 +41,14 @@ class StoreCustomerRequest extends FormRequest
             'hf_name' => 'nullable|string|max:255',
             'no_of_members' => 'nullable|string|max:255',
             'refered_by' => 'nullable|string|max:255',
+            'nominee_holder_name' => 'nullable|string|max:255',
+            'nominee_relation' => 'nullable|string|max:255',
+            'nominee_phone' => 'nullable|string|max:255',
+            'temp_provision_id' => 'nullable|string|max:255',
+            'temp_district_id' => 'nullable|string|max:255',
+            'temp_gaupalika_id' => 'nullable|string|max:255',
+            'temp_ward_no' => 'nullable|string|max:255',
+            
         ];
     }
 }
