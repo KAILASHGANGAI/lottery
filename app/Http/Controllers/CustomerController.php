@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Models\Agents;
 use App\Models\District;
 use App\Models\Gaupalika;
 use App\Models\Provision;
@@ -58,6 +59,8 @@ class CustomerController extends Controller
             }
 
             $customer->save();
+
+            $this->updateAgent($customer->refered_by);
             toast('Customer created successfully!', 'success');
 
             return back()->with('success', 'Customer created successfully!');
@@ -161,5 +164,11 @@ class CustomerController extends Controller
         }
 
         return response()->json(['options' => []]);
+    }
+
+    public function updateAgent($aid){
+        $agent = Agents::find($aid);
+        $agent->customer_count = $agent->customer_count +1 ;
+        $agent->save();
     }
 }
