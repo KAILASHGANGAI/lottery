@@ -61,8 +61,9 @@
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <label for="exampleInputPassword1">Reg. Date</label>
-                                    <input type="text" class="form-control" name="reg_date" id="nepali-datepicker" placeholder="Select Nepali
-                                    Date"/>
+                                    <input type="text" class="form-control" name="reg_date" id="nepali-datepicker"
+                                        placeholder="Select Nepali
+                                    Date" />
                                     @error('reg_date')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
@@ -91,7 +92,7 @@
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                              
+
                                 <div class="col-sm-3 form-group">
                                     <label for="exampleInputPassword1">CitizenShip Number:</label>
                                     <input type="text" class="form-control" name="citizenship_no"
@@ -160,15 +161,15 @@
 
                                 <div class="col-sm-3 form-group">
                                     <label for="exampleInputPassword1">Ward No.:</label>
-                                    <input id="ward_no" type="number" name="ward_no" class="form-control" placeholder="Ward No."
-                                        value="{{ old('ward_no') }}">
+                                    <input id="ward_no" type="number" name="ward_no" class="form-control"
+                                        placeholder="Ward No." value="{{ old('ward_no') }}">
                                     @error('ward_no')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
                             <hr>
-                            <h1 class="card-title text-success">Temporary Address Details 
+                            <h1 class="card-title text-success">Temporary Address Details
                                 <input type="checkbox" name="sameaspermanent" id="same_as_permanent">
                             </h1> Same As Above <br>
 
@@ -194,8 +195,9 @@
                                 <div class="col-md-3 form-group">
                                     <div class="">
                                         <label>District</label>
-                                        <select id="tempdistrictOptions" name="temp_district_id" class="form-control select2"
-                                            style="width: 100%;" value="{{ old('temp_district_id') }}">
+                                        <select id="tempdistrictOptions" name="temp_district_id"
+                                            class="form-control select2" style="width: 100%;"
+                                            value="{{ old('temp_district_id') }}">
                                             <option selected="selected">Select District</option>
 
                                         </select>
@@ -207,8 +209,9 @@
                                 <div class="col-md-3 form-group">
                                     <div class="">
                                         <label>Gaupalika</label>
-                                        <select id="tempgaupalikaOptions" name="temp_gaupalika_id" class="form-control select2"
-                                            value="{{ old('temp_gaupalika_id') }}" style="width: 100%;">
+                                        <select id="tempgaupalikaOptions" name="temp_gaupalika_id"
+                                            class="form-control select2" value="{{ old('temp_gaupalika_id') }}"
+                                            style="width: 100%;">
                                             <option selected="selected">Select Gaupalika</option>
 
                                         </select>
@@ -220,8 +223,8 @@
 
                                 <div class="col-sm-3 form-group">
                                     <label for="exampleInputPassword1">Ward No.:</label>
-                                    <input  id="temp_ward_no" type="number" name="temp_ward_no" class="form-control" placeholder="Ward No."
-                                        value="{{ old('temp_ward_no') }}">
+                                    <input id="temp_ward_no" type="number" name="temp_ward_no" class="form-control"
+                                        placeholder="Ward No." value="{{ old('temp_ward_no') }}">
                                     @error('temp_ward_no')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
@@ -261,7 +264,7 @@
                             <h1 class="card-title text-info">Noninee Details</h1> <br>
                             <div class="row">
                                 <div class="col-sm-4 form-group">
-                                    <label>Full  name:</label>
+                                    <label>Full name:</label>
                                     <input type="text" name="nominee_holder_name" class="form-control"
                                         placeholder="Enter Full name" value="{{ old('nominee_holder_name') }}">
                                     @error('nominee_holder_name')
@@ -285,7 +288,7 @@
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                          
+
 
                             </div>
                             <hr>
@@ -328,8 +331,12 @@
                                 </div>
                                 <div class="col-sm-4 form-group">
                                     <label for="exampleInputPassword1">Refered By:</label>
-                                    <input type="text" name="refered_by" class="form-control"
+                                    <input type="text" id="refered_name" name="refered_name" class="form-control"
                                         placeholder="refered By name" value="{{ old('refered_by') }}">
+                                    <input type="hidden" id="refered_by" value="" name="refered_by" required>
+
+                                    <div id="options-container"></div>
+
                                     @error('refered_by')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
@@ -362,7 +369,7 @@
         // Assume you have an AJAX function to fetch options
         $('#getDistrictsByProvision').on('change', fetchDistricts);
         $('#districtOptions').on('change', fetchGaupalika);
-        
+
         function fetchDistricts(e) {
             var value = e.target.value;
             $.ajax({
@@ -420,20 +427,85 @@
 
 
         $(document).ready(function() {
-        $('#same_as_permanent').change(function() {
-            
-            if (this.checked) {
-                $('#tempgetDistrictsByProvision').val($('#getDistrictsByProvision').val()).trigger('change');
-                $('#tempdistrictOptions').val($('#districtOptions').val()).trigger('change');
-                $('#tempgaupalikaOptions').val($('#gaupalikaOptions').val()).trigger('change');
-                $('#temp_ward_no').val($('#ward_no').val());
-            } else {
-                $('#tempgetDistrictsByProvision').val('').trigger('change');
-                $('#tempdistrictOptions').val('').trigger('change');
-                $('#tempgaupalikaOptions').val('').trigger('change');
-                $('#temp_ward_no').val('');
-            }
+            $('#same_as_permanent').change(function() {
+
+                if (this.checked) {
+                    $('#tempgetDistrictsByProvision').val($('#getDistrictsByProvision').val()).trigger(
+                        'change');
+                    $('#tempdistrictOptions').val($('#districtOptions').val()).trigger('change');
+                    $('#tempgaupalikaOptions').val($('#gaupalikaOptions').val()).trigger('change');
+                    $('#temp_ward_no').val($('#ward_no').val());
+                } else {
+                    $('#tempgetDistrictsByProvision').val('').trigger('change');
+                    $('#tempdistrictOptions').val('').trigger('change');
+                    $('#tempgaupalikaOptions').val('').trigger('change');
+                    $('#temp_ward_no').val('');
+                }
+            });
         });
-    });
+
+        $(document).ready(function() {
+            var customerNameInput = $('#refered_name');
+            var optionsContainer = $('#options-container');
+            var customer_id = $('#refered_by');
+
+            customerNameInput.on('input', function() {
+                var customerName = $(this).val();
+
+                if (customerName.length >= 3) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/get-agents/' + customerName,
+                        success: function(data) {
+                            optionsContainer.empty();
+
+                            // Append fetched options under the input field
+                            if (data.options.length > 0) {
+                                $.each(data.options, function(index, option) {
+                                    var optionDiv = $('<div>', {
+                                        class: 'option',
+                                        text: option.name
+
+                                    });
+
+                                    optionDiv.on('click', function() {
+                                        // Set the value of the input field on option click
+                                        customerNameInput.val(option.name);
+                                        customer_id.val(option.id)
+                                        optionsContainer
+                                            .empty(); // Hide options after selection
+                                    });
+
+                                    optionsContainer.append(optionDiv);
+                                });
+                            } else {
+                                optionsContainer.append('<p>No options available.</p>');
+                            }
+                        }
+                    });
+                }
+                // Make an Ajax request to fetch options based on the input field value
+
+            });
+        });
     </script>
+    <style>
+        #options-container {
+            position: relative;
+            margin-top: -1px;
+            border: 1px solid #ccc;
+            border-top: none;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .option {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
 @endsection

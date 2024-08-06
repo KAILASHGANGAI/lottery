@@ -53,5 +53,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('settings', SettingController::class);
     Route::resource('agents', AgentsController::class);
+    Route::get('/get-agents/{search}', [AgentsController::class, 'search']);
 
 });

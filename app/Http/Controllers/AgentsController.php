@@ -85,4 +85,18 @@ class AgentsController extends Controller
         return redirect()->route('agents.index')->with('success', 'agents deleted successfully!');
   
     }
+
+    public function search($search){
+          // Fetch options based on the selected customer name
+          $customer = Agents::select('id', 'name')->where('name', 'like', '%' . $search . '%')->get();
+
+          if ($customer) {
+              // Assume 'options' is a field in the Customer model
+              $options = $customer;
+  
+              return response()->json(['options' => $options]);
+          }
+  
+          return response()->json(['options' => []]);
+    }
 }
