@@ -168,7 +168,8 @@ class CustomerController extends Controller
 
     public function updateAgent($aid){
         $agent = Agents::find($aid);
-        $agent->customer_count = $agent->customer_count ?? 0 +1 ;
+        $count = $agent->customer_count ?? 0; 
+        $agent->customer_count =  $count +1 ;
         $agent->save();
     }
 }

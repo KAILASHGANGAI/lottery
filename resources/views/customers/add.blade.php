@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <label for="exampleInputPassword1">Reg. Date</label>
-                                    <input type="text" class="form-control" name="reg_date" id="nepali-datepicker"
+                                    <input type="text" class="form-control" value="{{ old('reg_date') }}" name="reg_date" id="nepali-datepicker"
                                         placeholder="Select Nepali
                                     Date" />
                                     @error('reg_date')
