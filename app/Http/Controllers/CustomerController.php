@@ -10,6 +10,7 @@ use App\Models\District;
 use App\Models\Gaupalika;
 use App\Models\Provision;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -43,6 +44,7 @@ class CustomerController extends Controller
     {
        # dd($request->all());
         try {
+            DB::beginTransaction();
             $customer = new Customer($request->all());
             // Handle image upload
             if ($request->hasFile('photo')) {
@@ -59,13 +61,15 @@ class CustomerController extends Controller
             }
 
             $customer->save();
-
-            $this->updateAgent($customer->refered_by);
+            if ($customer->refered_by) {
+                $this->updateAgent($customer->refered_by);
+            }
+            DB::commit();
             toast('Customer created successfully!', 'success');
-
             return back()->with('success', 'Customer created successfully!');
         } catch (\Exception $e) {
-            toast($e->getMessage(), 'error');
+            DB::rollBack();
+            toast('Some Thing Went Wrong. ', 'error');
 
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
@@ -168,7 +172,7 @@ class CustomerController extends Controller
 
     public function updateAgent($aid){
         $agent = Agents::find($aid);
-        $count = $agent->customer_count ?? 0; 
+        $count = ($agent->customer_count == null) ? 0 : $agent->customer_count; 
         $agent->customer_count =  $count +1 ;
         $agent->save();
     }
