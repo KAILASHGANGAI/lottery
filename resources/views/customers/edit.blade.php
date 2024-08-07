@@ -368,7 +368,7 @@
                                 <div class="col-sm-4 form-group">
                                     <label for="exampleInputPassword1">Refered By:</label>
                                     <input type="text" name="refered_by" class="form-control"
-                                        placeholder="refered By name"
+                                        placeholder="refered By name" disabled
                                         value="{{ $customer->refered_by ?? old('refered_by') }}">
                                     @error('refered_by')
                                         <p class="error text-danger">{{ $message }}</p>
