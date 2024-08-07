@@ -367,9 +367,13 @@
                                 </div>
                                 <div class="col-sm-4 form-group">
                                     <label for="exampleInputPassword1">Refered By:</label>
-                                    <input type="text" name="refered_by" class="form-control"
-                                        placeholder="refered By name" disabled
-                                        value="{{ $customer->refered_by ?? old('refered_by') }}">
+                                    <input type="text" id="refered_name" name="refered_name" class="form-control"
+                                        placeholder="refered By name" value="{{$customer->agent->name ?? old('refered_name') }}" required>
+
+                                    <input type="hidden" id="refered_by" value="{{ $customer->refered_by ?? old('refered_by') }}" name="refered_by" required>
+
+                                    <div id="options-container"></div>
+
                                     @error('refered_by')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
@@ -547,5 +551,69 @@
             }
         });
     });
+
+    $(document).ready(function() {
+            var customerNameInput = $('#refered_name');
+            var optionsContainer = $('#options-container');
+            var customer_id = $('#refered_by');
+
+            customerNameInput.on('input', function() {
+                var customerName = $(this).val();
+
+                if (customerName.length >= 3) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/get-agents/' + customerName,
+                        success: function(data) {
+                            optionsContainer.empty();
+
+                            // Append fetched options under the input field
+                            if (data.options.length > 0) {
+                                $.each(data.options, function(index, option) {
+                                    var optionDiv = $('<div>', {
+                                        class: 'option',
+                                        text: option.name
+
+                                    });
+
+                                    optionDiv.on('click', function() {
+                                        // Set the value of the input field on option click
+                                        customerNameInput.val(option.name);
+                                        customer_id.val(option.id)
+                                        optionsContainer
+                                            .empty(); // Hide options after selection
+                                    });
+
+                                    optionsContainer.append(optionDiv);
+                                });
+                            } else {
+                                optionsContainer.append('<p>No options available.</p>');
+                            }
+                        }
+                    });
+                }
+                // Make an Ajax request to fetch options based on the input field value
+
+            });
+        });
     </script>
+        <style>
+            #options-container {
+                position: relative;
+                margin-top: -1px;
+                border: 1px solid #ccc;
+                border-top: none;
+                max-height: 150px;
+                overflow-y: auto;
+            }
+    
+            .option {
+                padding: 8px;
+                cursor: pointer;
+            }
+    
+            .option:hover {
+                background-color: #f0f0f0;
+            }
+        </style>
 @endsection

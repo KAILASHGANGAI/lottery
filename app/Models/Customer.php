@@ -63,4 +63,8 @@ class Customer extends Model
     {
         return $this->belongsTo(Gaupalika::class, 'temp_gaupalika_id', 'id');
     }
-}
+
+    public function agent()
+{
+    return $this->hasOne(Agents::class, 'id', 'refered_by');
+}}

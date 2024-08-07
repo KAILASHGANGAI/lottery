@@ -58,7 +58,7 @@
                                 <span><strong>Mother Name:</strong> {{ $customer->mother_name }}</span> <br>
                                 <span><strong>Husband / Wife Name:</strong> {{ $customer->hf_name }}</span> <br>
                                 <span><strong>Number of Members :</strong> {{ $customer->no_of_members }}</span> <br>
-                                <span><strong>Refered By:</strong> {{ $customer->refered_by }}</span> <br>
+                                <span><strong>Refered By:</strong> {{ @$customer->agent->name }}</span> <br>
                                 <span><strong>Joining date:</strong> {{ $customer->created_at->format('Y-m-d') }}</span>
                                 <br>
                             </div>
