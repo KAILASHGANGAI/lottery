@@ -70,49 +70,31 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Instalment Amount</th>
-                                        <th>Deposited By</th>
-                                        <th>Deposited Date</th>
-                                        <th>Deposited To</th>
+                                        <th>S.N</th>
+                                        <th>CID</th>
+                                        <th>Deposite </th>
+                                        <th>Fine </th>
                                         <th>Due</th>
-                                        <th>Fine</th>
-                                        <th>Action</th>
+                                        <th>DepositedBy</th>
+                                        <th>Deposit Date</th>
+                                        <th>Created At</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($customers as $key => $item)
+                                    @foreach ($customer->deposits as $key => $item)
                                         <tr>
                                             <td>{{ ++$key }}</td>
-                                            <td>{{ $item->name }} </td>
-                                            <td>{{ $item->phone }}</td>
-                                            <td> {{ $item->provision->provision_name }}</td>
-                                            <td>{{ $item->district->districts_name }}</td>
-                                            <td>{{ $item->gaupalika->gaupalika_name }}</td>
-                                            <td>{{ $item->ward_no }}</td>
-                                            <td>
-                                                <a class="btn btn-primary btn-sm"
-                                                    href="{{ route('customer.show', $item->id) }}">
-                                                    <i class="fas fa-folder">
-                                                    </i>
-                                                    View
-                                                </a>
-                                                <a class="btn btn-info btn-sm"
-                                                    href="{{ route('customer.edit', $item->id) }}">
-                                                    <i class="fas fa-pencil-alt">
-                                                    </i>
-                                                    Edit
-                                                </a>
-                                                <a class="btn btn-danger btn-sm"
-                                                    href="{{ route('customer.delete', $item->id) }}">
-                                                    <i class="fas fa-trash">
-                                                    </i>
-                                                    Delete
-                                                </a>
-                                            </td>
+                                            <td>{{ $item->customer_name }} </td>
+                                            <td>{{ $item->cid }}</td>
+                                            <td> {{ $item->deposite_amount }}</td>
+                                            <td>{{ $item->fine_amount}}</td>
+                                            <td>{{ $item->due}}</td>
+                                            <td>{{ $item->dod }}</td>
+                                            <td>{{ $item->created_at }}</td>
+                                            
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
 
 
 

@@ -65,6 +65,11 @@ class Customer extends Model
     }
 
     public function agent()
-{
-    return $this->hasOne(Agents::class, 'id', 'refered_by');
-}}
+    {
+        return $this->hasOne(Agents::class, 'id', 'refered_by');
+    }
+
+    public function deposits(){
+        return $this->hasMany(Deposite::class, 'cid', 'cid')->orderby('id', 'DESC');
+    }
+}
