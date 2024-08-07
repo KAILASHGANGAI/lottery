@@ -71,6 +71,7 @@
                                 <thead>
                                     <tr>
                                         <th>S.N</th>
+                                        <th>Name</th>
                                         <th>CID</th>
                                         <th>Deposite </th>
                                         <th>Fine </th>
@@ -90,6 +91,7 @@
                                             <td> {{ $item->deposite_amount }}</td>
                                             <td>{{ $item->fine_amount}}</td>
                                             <td>{{ $item->due}}</td>
+                                            <td>{{ $item->customer_by }}</td>
                                             <td>{{ $item->dod }}</td>
                                             <td>{{ $item->created_at }}</td>
                                             
@@ -102,14 +104,15 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Instalment Amount</th>
-                                        <th>Deposited By</th>
-                                        <th>Deposited Date</th>
-                                        <th>Deposited To</th>
+                                        <th>S.N</th>
+                                        <th>Name</th>
+                                        <th>CID</th>
+                                        <th>Deposite </th>
+                                        <th>Fine </th>
                                         <th>Due</th>
-                                        <th>Fine</th>
-                                        <th>Action</th>
+                                        <th>DepositedBy</th>
+                                        <th>Deposit Date</th>
+                                        <th>Created At</th>
 
                                     </tr>
                                 </tfoot>
