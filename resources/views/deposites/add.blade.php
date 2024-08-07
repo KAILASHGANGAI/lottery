@@ -8,8 +8,10 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Deposites</a></li>
-                        <li class="breadcrumb-item active">add</li>
+                        <li class="breadcrumb-item"><a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
+                        </li>
+                        <li class="breadcrumb-item active"><a href="/" class="btn btn-secondary">Cancle</a>
+                        </li>
                     </ol>
                 </div>
             </div>
@@ -29,20 +31,40 @@
                     <form id="quickForm" method="post" action="{{ route('deposite.store') }}">
                         @csrf
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6 form-group">
+                            <div class="row">   
+                                <div class="col-sm-3 form-group">
                                     <label for="exampleInputEmail1">Customer Id Number</label>
-                                    <input type="text" id="customer_id" name="customer_id" class="form-control"
-                                        value="{{ old('customer_id') }}" placeholder="Enter Id">
-                                    @error('customer_id')
+                                    <input type="text" id="cid" name="cid" class="form-control"
+                                        value="{{ old('cid') }}" placeholder="Enter Id">
+                                    @error('cid')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                <div class="col-sm-6 form-group">
+                                <div class="col-sm-3 form-group">
+                                    <label for="exampleInputPassword1">Deposite Amount :</label>
+                                    <input type="number" id="deposite_amount" name="deposite_amount" class="form-control"
+                                        value="{{ old('deposite_amount') }}" placeholder="deposited Amount.">
+                                    @error('deposite_amount')
+                                        <p class="error text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-3 form-group">
+                                    <label for="exampleInputPassword1">Deposite Date:</label>
+                                    <input type="text" class="form-control" value="{{ old('dod') }}" name="dod"
+                                        id="nepali-datepicker"
+                                        placeholder="Select Nepali
+                                Date" />
+
+                                    @error('dod')
+                                        <p class="error text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-3 form-group">
                                     <label for="exampleInputEmail1">Full Name</label>
-                                    <input type="text" id="customerName" name="customer_name" class="form-control"
-                                        value="{{ old('customer_name') }}" placeholder="Enter Full name">
-                                    <div id="options-container"></div>
+                                    <input type="hidden" id="customer_id" name="customer_id" value="{{ old('customer_id') }}">
+                                    <input type="text" id="customerName" name="customer_name"
+                                        class="form-control" value="{{ old('customer_name') }}"
+                                        placeholder="Enter Full name">
 
                                     @error('customer_name')
                                         <p class="error text-danger">{{ $message }}</p>
@@ -50,60 +72,79 @@
                                 </div>
 
 
-                                <div class="col-sm-6 form-group">
-                                    <label for="exampleInputPassword1">Deposite Amount :</label>
-                                    <input type="number" name="deposite_amount" class="form-control"
-                                        value="{{ old('deposite_amount') }}" placeholder="deposited Amount.">
-                                    @error('deposite_amount')
-                                        <p class="error text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-6 form-group">
+                               
+                                <div class="col-sm-3 form-group">
                                     <label for="exampleInputPassword1">Due Amount :</label>
-                                    <input type="number" name="due" class="form-control" value="{{ old('due') }}"
-                                        placeholder="Due Amount.">
+                                    <input type="number" id="due" name="due"  class="form-control"
+                                        value="{{ old('due') }}" placeholder="Due Amount.">
                                     @error('due')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                <div class="col-sm-6 form-group">
+                                <div class="col-sm-3 form-group">
                                     <label for="exampleInputPassword1">Fine Amount:</label>
-                                    <input type="text" name="fine_amount" class="form-control"
+                                    <input type="number" id="fine" name="fine_amount" class="form-control"
                                         value="{{ old('fine_amount') }}" placeholder="fine Amount.">
                                     @error('fine_amount')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                <div class="col-sm-6 form-group">
-                                    <label for="exampleInputPassword1">Deposited By:</label>
-                                    <input type="text" name="customer_by" class="form-control"
-                                        value="{{ old('customer_by') }}" placeholder="deposited by">
+                                <div class="col-sm-3 form-group">
+                                    <label for="exampleInputPassword1">Refered By:</label>
+                                    <input type="text" id="customer_by" name="customer_by"  class="form-control"
+                                        value="{{ old('customer_by') }}" placeholder="Refered by">
                                     @error('customer_by')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                <div class="col-sm-6 form-group">
-                                    <label for="exampleInputPassword1">Deposite Date:</label>
-                                    <input type="date" name="dod" class="form-control" value="{{ old('dod') }}"
-                                        placeholder="dod">
-                                    @error('dod')
-                                        <p class="error text-danger">{{ $message }}</p>
-                                    @enderror
+                                <div class="col-sm-3">
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
+                       
                     </form>
                 </div>
                 <!-- /.card -->
             </div>
             <!--/.col (left) -->
             <!-- right column -->
-            <div class="col-md-6">
-
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="DataTable" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>S.N</th>
+                                            <th>CustomerName</th>
+                                            <th>CustomerId</th>
+                                            <th>Deposite </th>
+                                            <th>Fine </th>
+                                            <th>Due</th>
+                                            <th>DepositedBy</th>
+                                            <th>Deposit Date</th>
+                                            <th>Created At</th>
+    
+                                        </tr>
+                                    </thead>
+                                    <tbody> 
+                                 
+                                    </tbody>
+                                   
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
             </div>
             <!--/.col (right) -->
         </div>
@@ -134,48 +175,68 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function() {
-            var customerNameInput = $('#customerName');
-            var optionsContainer = $('#options-container');
-            var customer_id = $('#customer_id');
+            $('#cid').on('blur', function() {
+                let customerId = $(this).val();
 
-            customerNameInput.on('input', function() {
-                var customerName = $(this).val();
-
-                if (customerName.length >= 3) {
-                    $.ajax({
-                        type: 'GET',
-                        url: '/get-options/' + customerName,
-                        success: function(data) {
-                            optionsContainer.empty();
-
-                            // Append fetched options under the input field
-                            if (data.options.length > 0) {
-                                $.each(data.options, function(index, option) {
-                                    var optionDiv = $('<div>', {
-                                        class: 'option',
-                                        text: option.name +
-                                            "-" + option.id
-                                    });
-
-                                    optionDiv.on('click', function() {
-                                        // Set the value of the input field on option click
-                                        customerNameInput.val(option.name);
-                                        customer_id.val(option.id)
-                                        optionsContainer
-                                            .empty(); // Hide options after selection
-                                    });
-
-                                    optionsContainer.append(optionDiv);
-                                });
-                            } else {
-                                optionsContainer.append('<p>No options available.</p>');
-                            }
-                        }
-                    });
-                }
-                // Make an Ajax request to fetch options based on the input field value
-
+                $.ajax({
+                    url: '/get-customer', // Replace with your actual endpoint
+                    type: 'POST',
+                    data: {
+                        cid: customerId,
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        console.log(response)
+                        $('#customerName').val(response.customer.name)
+                        $('#customer_id').val(response.customer.id)
+                        $('#customer_by').val(response.customer.agent.name)
+                        $('#due').val(response.due)
+                        $('#fine').val(response.fine)
+                        
+                        $('#DataTable tbody').empty();
+                        
+                        // Loop through the response data and append rows to the table
+                        $.each(response.depositis, function(index, item) {
+                            let date = new Date(item.created_at);
+                            let formattedDate = date.toLocaleString();
+                            $('#DataTable tbody').append(
+                                '<tr>' +
+                                    '<td>' + ++index + '</td>' +
+                                    '<td>' + item.customer_name + '</td>' +
+                                    '<td>' + item.cid + '</td>' +
+                                    '<td>' + item.deposite_amount + '</td>' +
+                                    '<td>' + item.fine_amount + '</td>' +
+                                    '<td>' + item.due + '</td>' +
+                                    '<td>' + item.customer_by + '</td>' +
+                                    '<td>' + item.dod + '</td>' +
+                                    '<td>' + formattedDate + '</td>' +
+                                '</tr>'
+                            );
+                        });
+                    },
+                    error: function(xhr) {
+                        // Handle any errors
+                        console.error(xhr.responseText);
+                    }
+                });
             });
+        });
+
+        $(document).ready(function() {
+            $('#deposite_amount').on('blur', function() {
+                calculateNetDeposit();
+            });
+
+            function calculateNetDeposit() {
+                let depositedAmount = $('#deposite_amount').val();
+              
+                let left = $('#due').val();
+                    if (depositedAmount > 0) {
+                          let due = left - depositedAmount ;
+                             $('#due').val(due);
+                    }
+                  
+            }
         });
     </script>
 @endsection

@@ -22,7 +22,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
+                <div class="col-sm-8">
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -115,6 +115,43 @@
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Set Fine</h4>
+                            <form class="row"
+                            action="{{ @$fine->exists ? route('fine.update', $fine->id) : route('fine.store') }}"
+                            method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @if (@$fine->exists)
+                                @method('PATCH')
+                            @endif
+
+                            <div class="form-group col-sm-6">
+                                <label for="amount">Amount</label>
+                                <input type="text" name="amount" class="form-control" id="amount"
+                                    value="{{  @$fine->amount ?? old('amount') }}">
+                                @error('amount')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="daysafter">After Days</label>
+                                <input type="text" name="daysafter" class="form-control" id="daysafter"
+                                    value="{{ @$fine->daysafter ?? old('daysafter') }}">
+                                @error('daysafter')
+                                    <div class="text-danger">{{ $message }}</div>   
+                                @enderror
+                            </div>
+                           
+                            <div class="col-sm-6 pt-4">
+                                <button type="submit"
+                                class="btn btn-primary">{{ @$fine->exists ? 'Update' : 'Create' }}</button>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- /.row -->
         </div>

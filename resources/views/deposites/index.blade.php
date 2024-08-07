@@ -10,8 +10,10 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Deposites</a></li>
-                        <li class="breadcrumb-item active">List</li>
+                        <li class="breadcrumb-item"><a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
+                        </li>
+                        <li class="breadcrumb-item active"><a href="/" class="btn btn-secondary">Cancle</a>
+                        </li>
                     </ol>
                 </div>
             </div>
@@ -46,7 +48,7 @@
                                         <tr>
                                             <td>{{ ++$key }}</td>
                                             <td>{{ $item->customer_name }} </td>
-                                            <td>{{ $item->customer_id }} </td>
+                                            <td>{{ $item->cid }} </td>
                                             <td>{{ $item->deposite_amount }}</td>
                                             <td>{{ $item->fine_amount }}</td>
                                             <td>{{ $item->due }}</td>

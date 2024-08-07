@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DepositeController;
+use App\Http\Controllers\FineController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PosController;
@@ -36,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('/customer', CustomerController::class);
     Route::get('/get-options/{customerName}', [CustomerController::class, 'getOptions']);
+    Route::post('/get-customer', [CustomerController::class, 'getcustomer']);
 
     Route::resource('/staff', StaffController::class);
     Route::resource('/deposite', DepositeController::class);
@@ -52,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/checkout/bill', [PosController::class, 'showBill'])->name('checkout.bill');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('settings', SettingController::class);
+    Route::resource('fine', FineController::class);
     Route::resource('agents', AgentsController::class);
     Route::get('/get-agents/{search}', [AgentsController::class, 'search']);
 

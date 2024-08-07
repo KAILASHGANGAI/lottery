@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\fine;
 use App\Models\Owner;
 use App\Models\Setting;
 use Exception;
@@ -15,7 +16,8 @@ class SettingController extends Controller
     public function index()
     {
         $owner = Owner::first();
-        return  view('settings.index', compact('owner'));
+        $fine = fine::first();
+        return  view('settings.index', compact('owner', 'fine'));
     }
 
     /**

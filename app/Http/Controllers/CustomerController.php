@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Agents;
+use App\Models\Deposite;
 use App\Models\District;
 use App\Models\Gaupalika;
 use App\Models\Provision;
@@ -175,5 +176,29 @@ class CustomerController extends Controller
         $count = ($agent->customer_count == null) ? 0 : $agent->customer_count; 
         $agent->customer_count =  $count +1 ;
         $agent->save();
+    }
+
+    public function getcustomer(Request $request){
+        $cid = $request->cid;
+
+        $customer = Customer::query()
+        ->select('id','cid', 'name', 'refered_by', 'lottery_amount')
+        ->with(['agent:id,name'])
+        ->where('cid', $cid)
+        ->first();
+        $due = $customer->lottery_amount ?? 0 ;
+        $deposit = Deposite::where('cid', $cid)->latest()->get();
+        if(count($deposit) > 0){
+            $latestDeposite = Deposite::where('cid', $cid)->latest()->first();
+
+            $due =$latestDeposite->due;
+        }
+        return response()->json([
+            'customer'=>$customer,
+            'fine'=>0, 
+            'due'=> $due,
+            'depositis'=> $deposit
+        ]);
+
     }
 }

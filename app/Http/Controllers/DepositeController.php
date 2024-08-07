@@ -39,7 +39,7 @@ class DepositeController extends Controller
             $deposite->save();
             toast('Payment created successfully!', 'success');
 
-            return redirect()->route('deposite.index')->with('success', 'deposite created successfully!');
+            return back()->with('success', 'deposite created successfully!');
         } catch (\Exception $e) {
             toast($e->getMessage(), 'error');
 

@@ -11,6 +11,7 @@ class Deposite extends Model
     use HasFactory, SoftDeletes;
     protected $fillable = [
         'customer_id',
+        'cid',
         'customer_name',
         'deposite_amount',
         'fine_amount',

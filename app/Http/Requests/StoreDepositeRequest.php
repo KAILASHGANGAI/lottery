@@ -23,11 +23,13 @@ class StoreDepositeRequest extends FormRequest
     {
         return [
             'customer_id' => 'required|exists:customers,id',
+            'cid'=> 'required',
             'deposite_amount' => 'required|numeric|min:0',
             'fine_amount' => 'numeric|min:0',
+            'due'=> 'numeric|min:0',
             'customer_name' => 'required|string|max:255',
             'customer_by' => 'nullable|string|max:255',
-            'dod' => 'required|date'
+            'dod' => 'required|string',
         ];
     }
 }
