@@ -312,7 +312,7 @@ class CustomerController extends Controller
             return response()->json(['message' => 'Provide Regester Date To '.$customer->name]);
 
         }
-        if (!$customer->refered_by) {
+        if (!$customer->agent) {
             return response()->json(['message' => 'Give Agent name To '.$customer->name]);
 
         }
