@@ -304,6 +304,10 @@ class CustomerController extends Controller
         $due = 0;
 
         $customer = Customer::with('agent:id,name')->where('cid', $cid)->first();
+        if (!$customer->reg_date) {
+            return response()->json(['message' => 'Provide Regester Date To '.$customer->name]);
+
+        }
         $toDayDate = NepaliDate::create(now())->toBS();
         $currentmonth = (int) $this->getCurrentNepaliMonth($toDayDate);
         $currentYear = (int) $this->getCurrentNepaliYear($toDayDate);
