@@ -332,7 +332,7 @@ class CustomerController extends Controller
                 $lastPayedYear = $this->getCurrentNepaliYear($latestDeposited->dod);
 
                 if ($lastPayedMonth == $currentmonth && $lastPayedYear == $currentYear) {
-                    return response()->json(['message' => 'Already Paid for ' . $toDayDate]);
+                    return response()->json(['message' => 'Already Paid On ' . $toDayDate]);
                 }
 
                 $due = $latestDeposited->due; // Initialize with previous due amount

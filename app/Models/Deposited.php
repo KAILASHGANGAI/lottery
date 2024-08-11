@@ -11,4 +11,8 @@ class Deposited extends Model
     use HasFactory , SoftDeletes;
     protected $table = 'depositeds';
     protected $guarded = [];
+
+    public function customer(){
+        return $this->hasOne(Customer::class, 'cid', 'cid');
+    }
 }

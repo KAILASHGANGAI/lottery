@@ -37,7 +37,7 @@
                                         <th>Deposite </th>
                                         <th>Fine </th>
                                         <th>Due</th>
-                                        <th>DepositedBy</th>
+
                                         <th>date</th>
                                         <th>Action</th>
 
@@ -47,16 +47,18 @@
                                     @foreach ($deposites as $key => $item)
                                         <tr>
                                             <td>{{ ++$key }}</td>
-                                            <td>{{ $item->customer_name }} </td>
+                                            <td>{{ $item->customer->name }} </td>
                                             <td>{{ $item->cid }} </td>
                                             <td>{{ $item->deposite_amount }}</td>
                                             <td>{{ $item->fine_amount }}</td>
                                             <td>{{ $item->due }}</td>
-                                            <td>{{ $item->customer_by }}</td>
                                             <td>{{ $item->dod }}</td>
 
                                             <td>
-
+                                                {{-- @php
+                                                    $todayDate = \Carbon\Carbon::now()->toDateString();
+                                                @endphp
+                                                    @if ($item->created_at->toDateString() === $todayDate)
                                                 <a class="btn btn-info btn-sm"
                                                     href="{{ route('deposite.edit', $item->id) }}">
                                                     <i class="fas fa-pencil-alt">
@@ -74,6 +76,9 @@
                                                     onclick="event.preventDefault(); document.getElementById('delete-form-{{ $item->id }}').submit();">
                                                     <i class="fas fa-trash"></i> Delete
                                                 </a>
+                                                @else 
+                                                {{ '-' }}
+                                                @endif --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -86,7 +91,7 @@
                                         <th>Deposite </th>
                                         <th>Fine </th>
                                         <th>Due</th>
-                                        <th>DepositedBy</th>
+
                                         <th>date</th>
                                         <th>Action</th>
                                     </tr>

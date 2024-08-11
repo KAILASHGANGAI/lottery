@@ -6,6 +6,7 @@ use App\Models\Deposite;
 use App\Http\Requests\StoreDepositeRequest;
 use App\Http\Requests\UpdateDepositeRequest;
 use App\Models\Customer;
+use App\Models\Deposited;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -16,7 +17,7 @@ class DepositeController extends Controller
      */
     public function index()
     {
-        $deposites = Deposite::all();
+        $deposites = Deposited::latest()->get();
         return view('deposites.index', compact('deposites'));
     }
 
