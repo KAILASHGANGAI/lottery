@@ -308,6 +308,10 @@ class CustomerController extends Controller
             return response()->json(['message' => 'Provide Regester Date To '.$customer->name]);
 
         }
+        if (!$customer->refered_by) {
+            return response()->json(['message' => 'Give Agent name To '.$customer->name]);
+
+        }
         $toDayDate = NepaliDate::create(now())->toBS();
         $currentmonth = (int) $this->getCurrentNepaliMonth($toDayDate);
         $currentYear = (int) $this->getCurrentNepaliYear($toDayDate);
