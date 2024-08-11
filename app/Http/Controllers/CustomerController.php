@@ -304,6 +304,10 @@ class CustomerController extends Controller
         $due = 0;
 
         $customer = Customer::with('agent:id,name')->where('cid', $cid)->first();
+        if (!$customer) {
+            return response()->json(['message' => 'No Customer Found With This CID']);
+
+        }
         if (!$customer->reg_date) {
             return response()->json(['message' => 'Provide Regester Date To '.$customer->name]);
 
