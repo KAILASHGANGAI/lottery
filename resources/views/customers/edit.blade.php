@@ -66,7 +66,7 @@
                                     <label for="exampleInputPassword1">Reg. Date</label>
                                     <input type="text" class="form-control" value="{{ $customer->reg_date ?? old('reg_date') }}" name="reg_date" id="nepali-datepicker"
                                         placeholder="Select Nepali
-                                    Date" />
+                                    Date" required/>
                                     @error('reg_date')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
