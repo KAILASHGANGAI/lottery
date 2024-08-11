@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('gaupalika_id');
             $table->string('ward_no')->nullable();
             $table->bigInteger('lottery_amount')->nullable();
+            $table->bigInteger('reg_fee')->nullable();
             $table->string('photo')->nullable();
             $table->string('gender')->nullable();
             $table->string('citizenship_no')->nullable();

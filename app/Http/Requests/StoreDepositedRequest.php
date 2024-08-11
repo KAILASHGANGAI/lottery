@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class StoreAgentsRequest extends FormRequest
+class StoreDepositedRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +23,15 @@ class StoreAgentsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'percentage' => 'required',
-            'reg_date' => 'required|string|max:255',
-
+            'customer_id' => 'required|exists:customers,id',
+            'cid'=> 'required',
+            'deposite_amount' => 'required|numeric|min:0',
+            'fine_amount' => 'numeric|min:0',
+            'due'=> 'numeric|min:0',
+            'user_id'=>Auth::id(),
+            'dod' => 'required|string|max:255',
+           
+          
         ];
     }
 }

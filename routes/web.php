@@ -5,8 +5,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DepositeController;
+use App\Http\Controllers\DepositedController;
 use App\Http\Controllers\FineController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\LotteryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
@@ -41,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('/staff', StaffController::class);
     Route::resource('/deposite', DepositeController::class);
+    Route::resource('/deposited', DepositedController::class);
     Route::resource('/products', ProductController::class);
     Route::post('/products-search', [ProductController::class, 'search'])->name('product.search');
     Route::resource('categories', CategoryController::class);
@@ -55,6 +58,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('settings', SettingController::class);
     Route::resource('fine', FineController::class);
+    Route::resource('lottery', LotteryController::class);
     Route::resource('agents', AgentsController::class);
     Route::get('/get-agents/{search}', [AgentsController::class, 'search']);
 

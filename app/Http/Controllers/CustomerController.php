@@ -7,10 +7,18 @@ use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Agents;
 use App\Models\Deposite;
+use App\Models\Deposited;
 use App\Models\District;
+use App\Models\fine;
 use App\Models\Gaupalika;
+use App\Models\Lottery;
 use App\Models\Provision;
+use Carbon\Carbon;
+use Exception;
+use NepaliDate\Facades\NepaliDate;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -43,7 +51,7 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-       # dd($request->all());
+        # dd($request->all());
         try {
             DB::beginTransaction();
             $customer = new Customer($request->all());
@@ -60,6 +68,8 @@ class CustomerController extends Controller
                 // Set the photo attribute in the Customer model
                 $customer->photo = 'photos/' . $fileName;
             }
+            $lottert = Lottery::where('status', 1)->first();
+            $customer->lottery_amount = $lottert->amount ?? 1000;
 
             $customer->save();
             if ($customer->refered_by) {
@@ -103,7 +113,13 @@ class CustomerController extends Controller
         $tempgaupalikas = Gaupalika::select(['id', 'gaupalika_name'])->where('district_id', $temp_district_id)->get();
 
         return view('customers.edit', compact(
-            'customer', 'provisions', 'districts', 'gaupalikas', 'tempdistricts', 'tempgaupalikas'));
+            'customer',
+            'provisions',
+            'districts',
+            'gaupalikas',
+            'tempdistricts',
+            'tempgaupalikas'
+        ));
     }
 
     /**
@@ -126,8 +142,10 @@ class CustomerController extends Controller
 
                 // Set the photo attribute in the Customer model
                 $customer->photo = 'photos/customer/' . $fileName;
-                $customer->save();
             }
+            $lottert = Lottery::where('status', 1)->first();
+            $customer->lottery_amount = $lottert->amount ?? 1000;
+            $customer->save();
             toast('Customer updated successfully!', 'success');
 
             return redirect()->route('customer.index')->with('success', 'Customer updated successfully!');
@@ -171,34 +189,245 @@ class CustomerController extends Controller
         return response()->json(['options' => []]);
     }
 
-    public function updateAgent($aid){
+    public function updateAgent($aid)
+    {
         $agent = Agents::find($aid);
-        $count = ($agent->customer_count == null) ? 0 : $agent->customer_count; 
-        $agent->customer_count =  $count +1 ;
+        $count = ($agent->customer_count == null) ? 0 : $agent->customer_count;
+        $agent->customer_count =  $count + 1;
         $agent->save();
     }
 
-    public function getcustomer(Request $request){
+    // public function getcustomer(Request $request)
+    // {
+    //     $cid = $request->cid;
+    //     $due = 0;
+    //     $fineAmount = 0;
+    //     $deposit = null;
+    //     $day = 1;
+    //     $customer = Customer::query()
+    //         ->with(['agent:id,name'])
+    //         ->where('cid', $cid)
+    //         ->first();
+
+    //     $toDayDate =  NepaliDate::create(now())->toBS();
+    //     $currentmonth = $this->getCurrentNepaliMonth($toDayDate);
+    //     $currentYear = $this->getCurrentNepaliYear($toDayDate);
+
+    //     $deposited = Deposited::where('cid', $cid)->orderBy('dod', 'Desc')->get();
+    //     $lottert = Lottery::where('status', 1)->first();
+    //     $fine = fine::first();
+    //     $lAmount = $customer->lottery_amount ?? $lottert->amount;
+
+    //     if (count($deposited) > 0) {
+    //         $latestDeposited = Deposited::where('cid', $cid)->orderBy('dod', 'Desc')->first();
+    //         # dd($latestDeposited);
+    //         $due = $latestDeposited->due;
+    //         $lastpayedDate = $latestDeposited->dod;
+    //         $lastPayedMonth = $this->getCurrentNepaliMonth($lastpayedDate);
+    //         $lastPayedYear = $this->getCurrentNepaliYear($lastpayedDate);
+
+
+    //         if ($lastPayedMonth == $currentmonth && $lastPayedYear == $currentYear) {
+    //             return response()->json([
+    //                 'message' => 'Already Payed for ' . $toDayDate,
+    //             ]);
+    //         }
+    //     } else {
+    //         // lottery Amount per month is 
+
+    //         $regDate = $customer->reg_date;
+
+    //         $regMon = $this->getCurrentNepaliMonth($regDate);
+    //         $regYear = $this->getCurrentNepaliYear($regDate);
+
+    //         if ($currentYear == $regYear) {
+    //             $count = 1;
+    //             $fineAmount = 0;
+    //             for ($regMon; $regMon <= $currentmonth; $regMon++) {
+    //                 $due = $count * $lAmount;
+    //                 $fineAmount = ($regMon == $currentmonth) ? $fineAmount : $fineAmount + $fine->amount;
+    //                 $dod = $currentYear . '-' . $regMon . '-' . $day;
+    //                 $this->createDeposit($customer, $dod, $lAmount, $fineAmount, $due);
+    //                 $count++;
+    //             }
+    //             $deposit = Deposite::where([
+    //                 'cid' => $cid,
+    //                 'status' => 0
+    //             ])
+    //                 ->orderBy('dod', 'Desc')
+    //                 ->get();
+    //         } else {
+    //             if ($regYear < $currentYear) {
+    //                 $count = 1;
+    //                 for (; $regMon <= 12 && ($regYear < $currentYear || $regMon <= $currentmonth); $regMon++) {
+    //                     $fineAmount = ($regMon == $currentmonth) ? $fineAmount : $fineAmount + $fine->amount;
+    //                     $due = $count * $lAmount;
+    //                     $dod = $regYear . '-' . str_pad($regMon, 2, '0', STR_PAD_LEFT) . '-' . $day;
+    //                     $this->createDeposit(
+    //                         $customer,
+    //                         $dod,
+    //                         $lAmount,
+    //                         $fineAmount,
+    //                         $due
+    //                     );
+    //                     // If the month is December, increment the year and reset the month to 1
+    //                     if ($regMon == 12 && $regYear < $currentYear) {
+    //                         $regYear++;
+    //                         $regMon = 0; // Will be incremented to 1 at the beginning of the next loop
+    //                     }
+    //                     $count++;
+    //                 }
+    //                 $deposit = Deposite::where([
+    //                     'cid' => $cid,
+    //                     'status' => 0
+    //                 ])
+    //                     ->orderBy('dod', 'Desc')
+    //                     ->get();
+    //             } else {
+    //                 return response()->json(['message' => 'Future Date has Not Arrived.']);
+    //             }
+    //         }
+    //     }
+    //     return response()->json([
+    //         'customer' => $customer,
+    //         'fine' => $fineAmount,
+    //         'due' => $due + $fineAmount,
+    //         'depositis' => $deposit
+    //     ]);
+    // }
+
+    public function getcustomer(Request $request)
+    {
         $cid = $request->cid;
+        $day = 1;
+        $deposit = null;
+        $due = 0;
 
-        $customer = Customer::query()
-        ->select('id','cid', 'name', 'refered_by', 'lottery_amount')
-        ->with(['agent:id,name'])
-        ->where('cid', $cid)
-        ->first();
-        $due = $customer->lottery_amount ?? 0 ;
-        $deposit = Deposite::where('cid', $cid)->latest()->get();
-        if(count($deposit) > 0){
-            $latestDeposite = Deposite::where('cid', $cid)->latest()->first();
+        $customer = Customer::with('agent:id,name')->where('cid', $cid)->first();
+        $toDayDate = NepaliDate::create(now())->toBS();
+        $currentmonth = (int) $this->getCurrentNepaliMonth($toDayDate);
+        $currentYear = (int) $this->getCurrentNepaliYear($toDayDate);
 
-            $due =$latestDeposite->due;
+        $fine = fine::first();
+        $deposited = Deposited::where('cid', $cid)->orderBy('dod', 'Desc')->get();
+        $lotteryAmount = $customer->lottery_amount ?? Lottery::where('status', 1)->value('amount');
+        $fineAmount = 0;
+
+        try {
+            if ($deposited->isNotEmpty()) {
+                $latestDeposited = $deposited->first();
+                $lastPayedMonth = $this->getCurrentNepaliMonth($latestDeposited->dod);
+                $lastPayedYear = $this->getCurrentNepaliYear($latestDeposited->dod);
+
+                if ($lastPayedMonth == $currentmonth && $lastPayedYear == $currentYear) {
+                    return response()->json(['message' => 'Already Paid for ' . $toDayDate]);
+                }
+
+                $due = $latestDeposited->due; // Initialize with previous due amount
+                $fineAmount = 0;
+
+                // Loop through the months from the last deposited date to the current month of the current year
+                for ($year = $lastPayedYear; $year <= $currentYear; $year++) {
+                    $startMonth = ($year == $lastPayedYear) ? $lastPayedMonth + 1 : 1;
+                    $endMonth = ($year == $currentYear) ? $currentmonth : 12;
+
+                    for ($month = $startMonth; $month <= $endMonth; $month++) {
+
+                        $due = $due + $lotteryAmount; // Accumulate the due amount
+                        $dod = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . $day;
+                       # dd($dod);
+                        $this->createDeposit(
+                            $customer,
+                            $dod,
+                            $lotteryAmount,
+                            $fineAmount,
+                            $due
+                        );
+
+                        // Add fine if not the current month and current year
+                        if ($year < $currentYear || $month < $currentmonth) {
+                            $fineAmount += $fine->amount;
+                        }
+                    }
+                }
+
+            } else {
+                $regMon = $this->getCurrentNepaliMonth($customer->reg_date);
+                $regYear = $this->getCurrentNepaliYear($customer->reg_date);
+
+
+                for ($count = 1; $regYear < $currentYear || ($regYear == $currentYear && $regMon <= $currentmonth); $regMon++, $count++) {
+                    $dod = $regYear . '-' . str_pad($regMon, 2, '0', STR_PAD_LEFT) . '-' . $day;
+                    $this->createDeposit(
+                        $customer,
+                        $dod,
+                        $lotteryAmount,
+                        $fineAmount,
+                        $due = $count * $lotteryAmount
+                    );
+
+                    if ($regMon == 12) {
+                        $regYear++;
+                        $regMon = 0; // Resets the month to January (0 + 1 = 1)
+                    }
+
+                    if ($regYear < $currentYear || $regMon < $currentmonth) {
+                        $fineAmount += $fine->amount;
+                    }
+                }
+
+            }
+            $deposit = Deposite::where(['cid' => $cid, 'status' => 0])->orderBy('dod', 'Desc')->get();
+
+            return response()->json([
+                'customer' => $customer,
+                'fine' => $fineAmount,
+                'due' => $due + $fineAmount,
+                'depositis' => $deposit
+            ]);
+        } catch (Exception $th) {
+            dd($th);
         }
-        return response()->json([
-            'customer'=>$customer,
-            'fine'=>0, 
-            'due'=> $due,
-            'depositis'=> $deposit
-        ]);
+    }
 
+    public function getCurrentNepaliMonth($date)
+    {
+        return Carbon::parse($date)->format('n');
+    }
+
+    public function getCurrentNepaliYear($date)
+    {
+        return Carbon::parse($date)->format('Y');
+    }
+
+    public function monthDiff($date1, $date2)
+    {
+        $date1 = Carbon::parse($date1);
+        $date2 = Carbon::parse($date2);
+        $monthDiff = $date1->diffInMonths($date2);
+        return $monthDiff;
+    }
+
+    public function createDeposit($customer, $dod, $lAmount, $fineAmount, $due)
+    {
+
+        return Deposite::updateOrCreate(
+            [
+                'cid' => $customer->cid,
+                'dod' =>    $dod
+            ],
+            [
+                'customer_id' => $customer->id,
+                'customer_name' => $customer->name,
+                'customer_by' => @$customer->agent->name ?? null,
+                'cid' => $customer->cid,
+                'status' => 0,
+                'deposite_amount' => $lAmount,
+                'fine_amount' => $fineAmount,
+                'due' => $due,
+                'user_id' => Auth::id(),
+                'dod' =>    $dod
+            ]
+        );
     }
 }

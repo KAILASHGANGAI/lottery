@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\fine;
+use App\Models\Lottery;
 use App\Models\Owner;
 use App\Models\Setting;
 use Exception;
@@ -17,7 +18,8 @@ class SettingController extends Controller
     {
         $owner = Owner::first();
         $fine = fine::first();
-        return  view('settings.index', compact('owner', 'fine'));
+        $lottery = Lottery::first();
+        return  view('settings.index', compact('owner', 'fine','lottery'));
     }
 
     /**

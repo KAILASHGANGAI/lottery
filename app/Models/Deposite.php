@@ -14,6 +14,7 @@ class Deposite extends Model
         'cid',
         'customer_name',
         'deposite_amount',
+        'status',
         'fine_amount',
         'due',
         'customer_by',

@@ -118,7 +118,43 @@
                 <div class="col-sm-4">
                     <div class="card">
                         <div class="card-body">
-                            <h4>Set Fine</h4>
+                            <h6>Set Lottery Amount</h6>
+                            <form class="row"
+                            action="{{ @$fine->exists ? route('lottery.update', $lottery->id) : route('lottery.store') }}"
+                            method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @if (@$lottery->exists)
+                                @method('PATCH')
+                            @endif
+
+                            <div class="form-group col-sm-6">
+                                <label for="amount">Amount</label>
+                                <input type="text" name="amount" class="form-control" id="amount"
+                                    value="{{  @$lottery->amount ?? old('amount') }}">
+                                @error('amount')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Status </label> <br> 
+                                    <input type="radio" name="status" value="0" {{ $lottery->status == 0 ? 'checked' : '' }}>
+                                    <label>Inactive</label> <br>
+                                    <input type="radio" name="status" value="1" {{ $lottery->status == 1 ? 'checked' : '' }}>
+                                    <label>active</label>
+                                </div>
+                            </div>
+                           
+                            <div class="col-sm-6">
+                                <button type="submit"
+                                class="btn btn-primary">{{ @$fine->exists ? 'Update' : 'Create' }}</button>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h6>Set Fine</h6>
                             <form class="row"
                             action="{{ @$fine->exists ? route('fine.update', $fine->id) : route('fine.store') }}"
                             method="POST" enctype="multipart/form-data">

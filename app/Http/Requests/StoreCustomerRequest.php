@@ -30,6 +30,7 @@ class StoreCustomerRequest extends FormRequest
             'gaupalika_id' => 'required|exists:gaupalikas,id',
             'ward_no' => 'nullable|string|max:255',
             'lottery_amount' => 'nullable|integer',
+            'ref_fee' => 'nullable|integer',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'gender' => 'nullable|string|max:10',
             'citizenship_no' => 'nullable|string|max:255',

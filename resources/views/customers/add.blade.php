@@ -85,10 +85,10 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label for="exampleInputPassword1">Amount Of Lottery:</label>
-                                    <input type="number" name="lottery_amount" class="form-control" placeholder="Amount."
-                                        value="{{ old('lottery_amount') }}">
-                                    @error('lottery_amount')
+                                    <label for="exampleInputPassword1">Reg. Fee:</label>
+                                    <input type="number" name="reg_fee" class="form-control" placeholder="Amount."
+                                        value="{{ old('reg_fee') }}">
+                                    @error('reg_fee')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
@@ -310,8 +310,6 @@
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-
-
 
                                 <div class="col-sm-4 form-group">
                                     <label for="exampleInputPassword1">Husband / Wifename:</label>

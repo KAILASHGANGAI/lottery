@@ -37,7 +37,7 @@
                         <div class="card-body">
                             <h1 class="card-title text-primary">Personal Details</h1> <br>
                             <div class="row">
-                                <div class="col-sm-4 form-group">
+                                <div class="col-sm-3 form-group">
                                     <label>Full Name</label>
                                     <input type="text" name="name" class="form-control" placeholder="Enter Full name"
                                         value="{{ $customer->name ?? old('name') }}">
@@ -46,7 +46,7 @@
                                     @enderror
 
                                 </div>
-                                <div class="col-sm-4 form-group">
+                                <div class="col-sm-3 form-group">
                                     <label>Customer Id</label>
                                     <input type="text" name="cid" class="form-control"
                                         placeholder="Enter customer Id" value="{{ $customer->cid ?? old('cid') }}">
@@ -54,7 +54,7 @@
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                <div class="col-sm-4 form-group">
+                                <div class="col-sm-3 form-group">
                                     <label for="exampleInputPassword1">Phone Number</label>
                                     <input type="text" name="phone" class="form-control" placeholder="Phone Number"
                                         value="{{ $customer->phone ?? old('phone') }}">
@@ -62,7 +62,15 @@
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                              
+                                <div class="col-sm-3 form-group">
+                                    <label for="exampleInputPassword1">Reg. Date</label>
+                                    <input type="text" class="form-control" value="{{ $customer->reg_date ?? old('reg_date') }}" name="reg_date" id="nepali-datepicker"
+                                        placeholder="Select Nepali
+                                    Date" />
+                                    @error('reg_date')
+                                        <p class="error text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
                                 <div class="col-md-3 form-group">
                                     <div class="">
                                         <label>Gender</label>
@@ -85,10 +93,10 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label for="exampleInputPassword1">Amount Of Lottery:</label>
-                                    <input type="number" name="lottery_amount" class="form-control" placeholder="Amount."
-                                        value="{{ $customer->lottery_amount ?? old('lottery_amount') }}">
-                                    @error('lottery_amount')
+                                    <label for="exampleInputPassword1">Reg fee:</label>
+                                    <input type="number" name="reg_fee" class="form-control" placeholder="Amount."
+                                        value="{{ $customer->reg_fee ?? old('reg_fee') }}">
+                                    @error('reg_fee')
                                         <p class="error text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>

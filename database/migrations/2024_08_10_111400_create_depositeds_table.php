@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('deposites', function (Blueprint $table) {
+        Schema::create('depositeds', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')->constrained()->onDelete('cascade');
             $table->string('cid')->nullable();
             $table->unsignedBigInteger('deposite_amount')->comment('Deposit amount');
             $table->unsignedBigInteger('fine_amount')->comment('Fine amount');
-            $table->tinyInteger('status')->default(0);
             $table->unsignedBigInteger('due')->nullable()->comment('Due left amount');
-            $table->string('customer_name');
-            $table->string('customer_by')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->date('dod');
             $table->softDeletes();
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('deposites');
+        Schema::dropIfExists('depositeds');
     }
 };

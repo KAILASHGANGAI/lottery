@@ -18,6 +18,7 @@ class Customer extends Model
         'gaupalika_id',
         'ward_no',
         'lottery_amount',
+        'reg_fee',
         'photo',
         'gender',
         'citizenship_no',
