@@ -38,6 +38,7 @@ class DepositedController extends Controller
     {
         $validates = $request->validate([
             'customer_id' => 'required|exists:customers,id',
+        
             'cid' => 'required',
             'deposite_amount' => 'required|numeric|min:0',
             'fine_amount' => 'numeric|min:0',
@@ -50,6 +51,8 @@ class DepositedController extends Controller
      
             $validates['user_id'] = Auth::id();
             $validates['dod'] = NepaliDate::create(now())->toBS();
+
+           
             Deposited::create($validates);
             if ($request->depositMonth) {
                 Deposite::whereIn('id',$request->depositMonth)->update(['status'=>1]);
@@ -60,6 +63,7 @@ class DepositedController extends Controller
             return back()->with('success', 'deposite created successfully!');
         } catch (Exception $e) {
             DB::rollBack();
+            dd($e);
             toast($e->getMessage(), 'error');
 
             return back()->withInput()->with('error', $e);

@@ -51,9 +51,13 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-        # dd($request->all());
+            $request['temp_provision_id'] = $request->temp_provision_id ?? $request->provision_id;
+            $request['temp_district_id'] = $request->temp_district_id ?? $request->district_id;
+            $request['temp_gaupalika_id'] = $request->temp_gaupalika_id ?? $request->gaupalika_id;
+            $request['temp_ward_no'] = $request->temp_ward_no ?? $request->ward_no;
         try {
             DB::beginTransaction();
+            
             $customer = new Customer($request->all());
             // Handle image upload
             if ($request->hasFile('photo')) {
@@ -80,6 +84,7 @@ class CustomerController extends Controller
             return back()->with('success', 'Customer created successfully!');
         } catch (\Exception $e) {
             DB::rollBack();
+            dd($e);
             toast('Some Thing Went Wrong. ', 'error');
 
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
@@ -321,18 +326,29 @@ class CustomerController extends Controller
         $currentYear = (int) $this->getCurrentNepaliYear($toDayDate);
 
         $fine = fine::first();
-        $deposited = Deposited::where('cid', $cid)->orderBy('dod', 'Desc')->get();
+        $deposited = Deposited::where('cid', $cid)->orderBy('created_at', 'Desc')->get();
         $lotteryAmount = $customer->lottery_amount ?? Lottery::where('status', 1)->value('amount');
         $fineAmount = 0;
 
         try {
             if ($deposited->isNotEmpty()) {
                 $latestDeposited = $deposited->first();
+                
                 $lastPayedMonth = $this->getCurrentNepaliMonth($latestDeposited->dod);
                 $lastPayedYear = $this->getCurrentNepaliYear($latestDeposited->dod);
 
                 if ($lastPayedMonth == $currentmonth && $lastPayedYear == $currentYear) {
-                    return response()->json(['message' => 'Already Paid On ' . $toDayDate]);
+                    if ($latestDeposited->due != 0) {
+                        return response()->json([
+                            'customer' => $customer,
+                            'fine' => $fineAmount,
+                            'due' => $latestDeposited->due ,
+                            'depositis' => null
+                        ]);
+                    }
+                    return response()->json([
+                        'message' => 'Already Paid On ' . $toDayDate. '& Due Amount Is ' . $latestDeposited->due
+                    ]);
                 }
 
                 $due = $latestDeposited->due; // Initialize with previous due amount
@@ -398,6 +414,7 @@ class CustomerController extends Controller
                 'depositis' => $deposit
             ]);
         } catch (Exception $th) {
+            
             dd($th);
         }
     }

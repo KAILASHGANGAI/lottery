@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('fine_amount')->comment('Fine amount');
             $table->unsignedBigInteger('due')->nullable()->comment('Due left amount');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->date('dod');
+            $table->datetimes('dod');
             $table->softDeletes();
             $table->timestamps();
         });

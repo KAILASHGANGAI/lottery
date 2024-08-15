@@ -66,6 +66,7 @@
 
                                 <div class="col-sm-3 form-group">
                                     <label for="exampleInputPassword1">Due Amount :</label>
+                                    <input type="hidden" id="realdue" value="{{ old('due') }}">
                                     <input type="number" id="due" name="due" class="form-control"
                                         value="{{ old('due') }}" placeholder="Due Amount.">
                                     @error('due')
@@ -194,13 +195,14 @@
                     success: function(response) {
                         console.log(response)
                         if (response.message) {
+                            $('input').val('');
                             alert(response.message);
-                           
                         }
                         $('#customerName').val(response.customer.name)
                         $('#customer_id').val(response.customer.id)
                         $('#customer_by').val(response.customer.agent.name)
                         $('#due').val(response.due)
+                        $('#realdue').val(response.due)
                         $('#fine').val(response.fine)
 
                         $('#DataTable tbody').empty();
@@ -213,7 +215,7 @@
 
                             $('#DataTable tbody').append(
                                 '<tr>' +
-                                '<td><input type="checkbox" name="depositMonth[]" class="checkbox" value="'+item.id+'" /></td>' +
+                                '<td><input type="checkbox" name="depositMonth[]" checked class="checkbox" value="'+item.id+'" /></td>' +
                                 '<td>' + ++index + '</td>' +
                                 '<td>' + item.customer_name + '</td>' +
                                 '<td>' + item.cid + '</td>' +
@@ -244,7 +246,7 @@
             function calculateNetDeposit() {
                 let depositedAmount = $('#deposite_amount').val();
 
-                let left = $('#due').val();
+                let left = $('#realdue').val();
                 if (depositedAmount > 0) {
                     let due = left - depositedAmount;
                     $('#due').val(due);

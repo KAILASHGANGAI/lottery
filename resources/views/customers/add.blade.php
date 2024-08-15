@@ -73,10 +73,11 @@
                                         <label>Gender</label>
                                         <select class="form-control select2" name="gender" style="width: 100%;"
                                             value="{{ old('gender') }}">
-                                            <option selected="selected">Select Gender </option>
-                                            <option value="male">Male</option>
-                                            <option value=female>Female</option>
-                                            <option value="others">Others</option>
+                                            <option {{ old('gender') == '' ? 'selected' : '' }} selected="selected">Select Gender </option>
+                                            <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                                            <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
+                                            <option value="others" {{ old('gender') == 'others' ? 'selected' : '' }}>Others</option>
+                                        
 
                                         </select>
                                         @error('gender')
@@ -180,7 +181,7 @@
                                         <select id="tempgetDistrictsByProvision" name="temp_provision_id"
                                             class="form-control select2" style="width: 100%;"
                                             value="{{ old('temp_provision_id') }}">
-                                            <option selected="selected">Select Provisions</option>
+                                            <option value="" selected="selected">Select Provisions</option>
                                             @foreach ($provisions as $item)
                                                 <option value="{{ $item->id }}">
                                                     {{ ucfirst($item->provision_name) }}</option>
@@ -198,7 +199,7 @@
                                         <select id="tempdistrictOptions" name="temp_district_id"
                                             class="form-control select2" style="width: 100%;"
                                             value="{{ old('temp_district_id') }}">
-                                            <option selected="selected">Select District</option>
+                                            <option value="" selected="selected">Select District</option>
 
                                         </select>
                                         @error('temp_district_id')
@@ -212,7 +213,7 @@
                                         <select id="tempgaupalikaOptions" name="temp_gaupalika_id"
                                             class="form-control select2" value="{{ old('temp_gaupalika_id') }}"
                                             style="width: 100%;">
-                                            <option selected="selected">Select Gaupalika</option>
+                                            <option value="" selected="selected">Select Gaupalika</option>
 
                                         </select>
                                         @error('temp_gaupalika_id')
@@ -223,6 +224,7 @@
 
                                 <div class="col-sm-3 form-group">
                                     <label for="exampleInputPassword1">Ward No.:</label>
+                                    
                                     <input id="temp_ward_no" type="number" name="temp_ward_no" class="form-control"
                                         placeholder="Ward No." value="{{ old('temp_ward_no') }}">
                                     @error('temp_ward_no')
@@ -330,8 +332,9 @@
                                 <div class="col-sm-4 form-group">
                                     <label for="exampleInputPassword1">Refered By:</label>
                                     <input type="text" id="refered_name" name="refered_name" class="form-control"
-                                        placeholder="refered By name" value="{{ old('refered_by') }}">
-                                    <input type="hidden" id="refered_by" value="" name="refered_by" required>
+                                        placeholder="refered By name" value="{{ old('refered_name') }}">
+
+                                    <input type="hidden" id="refered_by" value="{{ old('refered_by') }}" name="refered_by" required>
 
                                     <div id="options-container"></div>
 
