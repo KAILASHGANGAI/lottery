@@ -112,6 +112,25 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('report') }}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Report
+                            <i class="fas fa-angle-left right"></i>
+
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('report') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>create report</p>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('staff.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>

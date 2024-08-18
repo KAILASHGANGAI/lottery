@@ -71,6 +71,6 @@ class Customer extends Model
     }
 
     public function deposits(){
-        return $this->hasMany(Deposite::class, 'cid', 'cid')->orderby('id', 'DESC');
+        return $this->hasMany(Deposited::class, 'cid', 'cid')->orderby('id', 'DESC');
     }
 }

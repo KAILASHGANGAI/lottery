@@ -130,7 +130,11 @@
         window.onload = function() {
             var mainInput = document.getElementById("nepali-datepicker");
             mainInput.nepaliDatePicker();
+            var mainInput2 = document.getElementById("nepali-datepicker2");
+            mainInput2.nepaliDatePicker();
         };
+
+        
     </script>
 </body>
 

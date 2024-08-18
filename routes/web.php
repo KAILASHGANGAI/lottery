@@ -4,6 +4,7 @@ use App\Http\Controllers\AgentsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepositeController;
 use App\Http\Controllers\DepositedController;
 use App\Http\Controllers\FineController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\LotteryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StaffController;
 use GuzzleHttp\Middleware;
@@ -33,9 +35,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::middleware(['auth'])->group(function () {
     Route::get('/get-districts/{id}', [LocationController::class, 'getDistrict'])->name('getDistrict');
     Route::get('/get-gaupalaika/{id}', [LocationController::class, 'getGaupalika'])->name('getGaupalika');
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    Route::get('/',[DashboardController::class, 'index'])->name('home');
 
     Route::resource('/customer', CustomerController::class);
     Route::get('/get-options/{customerName}', [CustomerController::class, 'getOptions']);
@@ -61,5 +61,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('lottery', LotteryController::class);
     Route::resource('agents', AgentsController::class);
     Route::get('/get-agents/{search}', [AgentsController::class, 'search']);
+
+    Route::get('/report', [ReportController::class, 'index'])->name('report');
+    Route::post('/report', [ReportController::class, 'search'])->name('searchreport');
+
 
 });

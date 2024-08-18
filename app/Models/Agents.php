@@ -12,4 +12,9 @@ class Agents extends Model
 
     protected $table ='agents';
     protected $guarded = [];
+
+    public function customers()
+    {
+        return $this->hasMany(Customer::class, 'refered_by', 'id');
+    }
 }

@@ -45,9 +45,15 @@ class AgentsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Agents $agents)
+    public function show($id)
     {
-        return view('agents.show', compact('agents'));
+        $agents = Agents::with(['customers'])->where('id',$id)->first();
+        $TotalCollection = $agents->customers->map(function($customer) {
+            return $customer->deposits->sum('deposite_amount');
+        })->sum();
+        $earning = $agents->percentage / 100 * $TotalCollection;
+        $agents->update(['amount' => $earning]);
+        return view('agents.show', compact('agents', 'TotalCollection', 'earning'));
 
     }
 
