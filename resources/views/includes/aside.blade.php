@@ -87,7 +87,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('agents.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
+                        <i class="nav-icon fas fa-magnet"></i>
                         <p>
                             Agents
                             <i class="fas fa-angle-left right"></i>
@@ -113,7 +113,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('report') }}" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
+                        <i class="nav-icon fas fa-file"></i>
                         <p>
                             Report
                             <i class="fas fa-angle-left right"></i>
