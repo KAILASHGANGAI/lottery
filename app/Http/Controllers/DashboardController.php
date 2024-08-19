@@ -18,8 +18,6 @@ class DashboardController extends Controller
 
         $thisMonth = $this->getCurrentNepaliMonth($todayNepaliDate);
         $thisYear = $this->getCurrentNepaliYear($todayNepaliDate);
-
-
         $datas = [
             'totalCustomer' => Customer::count(),
             'totalAgents' => Agents::count(),

@@ -26,7 +26,7 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>Rs. {{ $todayCollection }}/-</h3>
+                            <h3>Rs. {{ number_format($todayCollection, 0, '.', ',') }}/-</h3>
 
                             <p>Todays Collection</p>
                         </div>
@@ -41,7 +41,7 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>Rs. {{ $thisMonthCollection }}<sup style="font-size: 20px">/-</sup></h3>
+                            <h3>Rs. {{ number_format($thisMonthCollection, 0, '.', ',') }}<sup style="font-size: 20px">/-</sup></h3>
 
                             <p>This Month Collection</p>
                         </div>
@@ -56,7 +56,7 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>Rs. {{ $thisYearCollection }}/-</h3>
+                            <h3>Rs. {{ number_format($thisYearCollection, 0, '.', ',') }}/-</h3>
 
                             <p>This Year Collection</p>
                         </div>
