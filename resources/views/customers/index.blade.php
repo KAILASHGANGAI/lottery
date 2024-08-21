@@ -34,11 +34,9 @@
                                         <th>Id</th>
                                         <th>Full Name</th>
                                         <th> CustomerID</th>
+                                        <th>Agent</th>
                                         <th>Contact No</th>
-                                        <th>Provision</th>
-                                        <th>District</th>
-                                        <th>Gaupalika</th>
-                                        <th>Ward No</th>
+                                        <th>Address</th>
                                         <th>Action</th>
 
                                     </tr>
@@ -49,11 +47,12 @@
                                             <td>{{ ++$key }}</td>
                                             <td>{{ ucfirst($item->name) }} </td>
                                             <td>{{ $item->cid }} </td>
+                                            <td>{{ $item->agent->name?? '-' }} </td>
                                             <td>{{ $item->phone }}</td>
-                                            <td> {{ ucfirst($item->provision->provision_name) }}</td>
-                                            <td>{{ ucfirst($item->district->districts_name) }}</td>
-                                            <td>{{ ucfirst($item->gaupalika->gaupalika_name) }}</td>
-                                            <td>{{ $item->ward_no }}</td>
+                                            <td> {{ ucfirst($item->provision->provision_name) . ", " . 
+                                            ucfirst($item->district->districts_name) . ", " . 
+                                            ucfirst($item->gaupalika->gaupalika_name) . "-" . 
+                                            $item->ward_no }}</td>
                                             <td>
                                                 <a class="btn btn-primary btn-sm"
                                                     href="{{ route('customer.show', $item->id) }}">
@@ -91,11 +90,10 @@
                                         <th>Id</th>
                                         <th>Full Name</th>
                                         <th> CustomerID</th>
+                                        <th>Agent </th>
+
                                         <th>Contact No</th>
-                                        <th>Provision</th>
-                                        <th>District</th>
-                                        <th>Gaupalika</th>
-                                        <th>Ward No</th>
+                                        <th>Address</th>
                                         <th>Action</th>
 
                                     </tr>

@@ -62,8 +62,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('agents', AgentsController::class);
     Route::get('/get-agents/{search}', [AgentsController::class, 'search']);
 
-    Route::get('/report', [ReportController::class, 'index'])->name('report');
-    Route::post('/report', [ReportController::class, 'search'])->name('searchreport');
+    Route::get('/customer-report', [ReportController::class, 'index'])->name('customer.report');
+    Route::post('/customer-report', [ReportController::class, 'search'])->name('searchreport');
+    Route::get('/agent-report', [ReportController::class, 'agent'])->name('agent.report');
+    Route::post('/agent-report', [ReportController::class, 'agentsearch'])->name('agentsearchreport');
+    Route::get('/date-report', [ReportController::class, 'date'])->name('date.report');
+    Route::post('/date-report', [ReportController::class, 'datesearch'])->name('datesearchreport');
 
 
 });

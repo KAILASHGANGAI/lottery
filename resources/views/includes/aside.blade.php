@@ -112,7 +112,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('report') }}" class="nav-link">
+                    <a href="{{ route('customer.report') }}" class="nav-link">
                         <i class="nav-icon fas fa-file"></i>
                         <p>
                             Report
@@ -122,12 +122,23 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('report') }}" class="nav-link">
+                            <a href="{{ route('customer.report') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>create report</p>
+                                <p>Customer report</p>
                             </a>
                         </li>
-                        
+                        <li class="nav-item">
+                            <a href="{{ route('agent.report') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Agent report</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('date.report') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>By Date report</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">

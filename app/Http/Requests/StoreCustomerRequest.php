@@ -41,7 +41,7 @@ class StoreCustomerRequest extends FormRequest
             'mother_name' => 'nullable|string|max:255',
             'hf_name' => 'nullable|string|max:255',
             'no_of_members' => 'nullable|string|max:255',
-            'refered_by' => 'nullable|string|max:255',
+            'refered_by' => 'required|string|max:255',
             'nominee_holder_name' => 'nullable|string|max:255',
             'nominee_relation' => 'nullable|string|max:255',
             'nominee_phone' => 'nullable|string|max:255',

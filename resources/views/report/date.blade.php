@@ -13,7 +13,7 @@
 
             <div class="row">
                 <div class="col-sm-6">
-                    <h1>Reports By Customer</h1>
+                    <h1>Reports By Date</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -42,11 +42,14 @@
                         <div class="card-header pb-0 ">
 
                             <div class="card-tools">
-                                <form action="{{ route('searchreport') }}" method="post">
+                                <form action="{{ route('datesearchreport') }}" method="post">
                                     @csrf
                                     <div class="input-group input-group-sm" style="width: ;">
-                                        <input type="text" value="{{ $request->cid ?? old('cid') }}" name="cid"
-                                            class="form-control float-right" placeholder="Search By Customer Id" required>
+                                        <a href="{{ route('date.report') }}" class=" btn btn-default mx-3 py-0">Today's</a>
+                                        <input type="text" value="{{ $request->from_date ?? old('from_date') }}" name="from_date" id="nepali-datepicker"
+                                            class="form-control float-right" placeholder="From:" required>
+                                            <input type="text" value="{{ $request->to_date ?? old('to_date') }}" name="to_date" id="nepali-datepicker2"
+                                            class="form-control float-right" placeholder="To:" required>
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-default"><i
                                                     class="fas fa-search"></i></button>
@@ -89,7 +92,7 @@
                                     </tr>
                                     <td colspan="4" class="text-center">Total</td>
 
-                                    <td colspan="2">Rs.{{ $datas->sum('deposite_amount') ." /-" }}</td>
+                                    <td colspan="2">Rs.{{$datas ? $datas->sum('deposite_amount') :0  ." /-" }}</td>
 
                                     </tr>
                                 </tfoot>
