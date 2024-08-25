@@ -51,13 +51,13 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-            $request['temp_provision_id'] = $request->temp_provision_id ?? $request->provision_id;
-            $request['temp_district_id'] = $request->temp_district_id ?? $request->district_id;
-            $request['temp_gaupalika_id'] = $request->temp_gaupalika_id ?? $request->gaupalika_id;
-            $request['temp_ward_no'] = $request->temp_ward_no ?? $request->ward_no;
+        $request['temp_provision_id'] = $request->temp_provision_id ?? $request->provision_id;
+        $request['temp_district_id'] = $request->temp_district_id ?? $request->district_id;
+        $request['temp_gaupalika_id'] = $request->temp_gaupalika_id ?? $request->gaupalika_id;
+        $request['temp_ward_no'] = $request->temp_ward_no ?? $request->ward_no;
         try {
             DB::beginTransaction();
-            
+
             $customer = new Customer($request->all());
             // Handle image upload
             if ($request->hasFile('photo')) {
@@ -311,15 +311,12 @@ class CustomerController extends Controller
         $customer = Customer::with('agent:id,name')->where('cid', $cid)->first();
         if (!$customer) {
             return response()->json(['message' => 'No Customer Found With This CID']);
-
         }
         if (!$customer->reg_date) {
-            return response()->json(['message' => 'Provide Regester Date To '.$customer->name]);
-
+            return response()->json(['message' => 'Provide Regester Date To ' . $customer->name]);
         }
         if (!$customer->agent) {
-            return response()->json(['message' => 'Give Agent name To '.$customer->name]);
-
+            return response()->json(['message' => 'Give Agent name To ' . $customer->name]);
         }
         $toDayDate = NepaliDate::create(now())->toBS();
         $currentmonth = (int) $this->getCurrentNepaliMonth($toDayDate);
@@ -333,7 +330,7 @@ class CustomerController extends Controller
         try {
             if ($deposited->isNotEmpty()) {
                 $latestDeposited = $deposited->first();
-                
+
                 $lastPayedMonth = $this->getCurrentNepaliMonth($latestDeposited->dod);
                 $lastPayedYear = $this->getCurrentNepaliYear($latestDeposited->dod);
 
@@ -342,12 +339,12 @@ class CustomerController extends Controller
                         return response()->json([
                             'customer' => $customer,
                             'fine' => $fineAmount,
-                            'due' => $latestDeposited->due ,
+                            'due' => $latestDeposited->due,
                             'depositis' => null
                         ]);
                     }
                     return response()->json([
-                        'message' => 'Already Paid On ' . $toDayDate. '& Due Amount Is ' . $latestDeposited->due
+                        'message' => 'Already Paid On ' . $toDayDate . '& Due Amount Is ' . $latestDeposited->due
                     ]);
                 }
 
@@ -363,7 +360,7 @@ class CustomerController extends Controller
 
                         $due = $due + $lotteryAmount; // Accumulate the due amount
                         $dod = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . $day;
-                       # dd($dod);
+                        # dd($dod);
                         $this->createDeposit(
                             $customer,
                             $dod,
@@ -378,7 +375,6 @@ class CustomerController extends Controller
                         }
                     }
                 }
-
             } else {
                 $regMon = $this->getCurrentNepaliMonth($customer->reg_date);
                 $regYear = $this->getCurrentNepaliYear($customer->reg_date);
@@ -403,7 +399,6 @@ class CustomerController extends Controller
                         $fineAmount += $fine->amount;
                     }
                 }
-
             }
             $deposit = Deposite::where(['cid' => $cid, 'status' => 0])->orderBy('dod', 'Desc')->get();
 
@@ -414,7 +409,7 @@ class CustomerController extends Controller
                 'depositis' => $deposit
             ]);
         } catch (Exception $th) {
-            
+
             dd($th);
         }
     }
@@ -458,5 +453,37 @@ class CustomerController extends Controller
                 'dod' =>    $dod
             ]
         );
+    }
+
+    public function searchCustomer(Request $request)
+    {
+
+        $cid = $request->input('cid');
+
+        // check if agent:name or number exists
+        $exp = explode(':', $cid);
+        if ($exp[0] == 'agent') {
+            $agents = Agents::where('name', $exp[1])
+                ->orWhere('phone', $exp[1])
+                ->first();
+
+            if (!$agents) {
+                toast('Agent not found!', 'error');
+                return redirect()->back()->with('error', 'Agent not found')->withInput($request->all());
+            }
+            $TotalCollection = $agents->customers->map(function ($customer) {
+                return $customer->deposits->sum('deposite_amount');
+            })->sum();
+            $earning = $agents->percentage / 100 * $TotalCollection;
+            $agents->update(['amount' => $earning]);
+            return view('agents.show', compact('agents', 'TotalCollection', 'earning'));
+        }
+
+        $customer = Customer::where('cid', $cid)->first();
+        if (!$customer) {
+            toast('Customer not found!', 'error');
+            return redirect()->back()->with('error', 'Customer not found')->withInput($request->all());
+        }
+        return view('customers.show', compact('customer'));
     }
 }

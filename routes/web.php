@@ -68,6 +68,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/agent-report', [ReportController::class, 'agentsearch'])->name('agentsearchreport');
     Route::get('/date-report', [ReportController::class, 'date'])->name('date.report');
     Route::post('/date-report', [ReportController::class, 'datesearch'])->name('datesearchreport');
-
+    Route::get('/search-customer', [CustomerController::class, 'searchCustomer'])->name('searchCustomer');
 
 });
