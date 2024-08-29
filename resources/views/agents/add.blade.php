@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="col-sm-4 form-group">
                                     <label for="exampleInputPassword1">Percentage</label>
-                                    <input type="text" name="percentage" class="form-control" placeholder="percentage Number"
+                                    <input type="number" name="percentage" class="form-control" placeholder="percentage Number"
                                         value="{{ old('percentage') }}">
                                     @error('percentage')
                                         <p class="error text-danger">{{ $message }}</p>
