@@ -21,7 +21,7 @@ class DashboardController extends Controller
         $datas = [
             'totalCustomer' => Customer::count(),
             'totalAgents' => Agents::count(),
-            'todayCollection' => Deposited::whereDate('created_at',  date('Y-m-d'))->sum('deposite_amount'),
+            'todayCollection' => Deposited::whereDate('dod',  $todayNepaliDate)->sum('deposite_amount'),
             'thisMonthCollection' => Deposited::whereMonth('dod', $thisMonth)->sum('deposite_amount'),
             'thisYearCollection' => Deposited::whereYear('dod', $thisYear)->sum('deposite_amount'),
         ];
