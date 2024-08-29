@@ -409,8 +409,8 @@ class CustomerController extends Controller
                 'depositis' => $deposit
             ]);
         } catch (Exception $th) {
-
-            dd($th);
+            toast('Error while creating deposit. Please try again.', 'error');
+            return response()->json(['message' => $th->getMessage()], 500);
         }
     }
 

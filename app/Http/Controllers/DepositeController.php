@@ -42,8 +42,7 @@ class DepositeController extends Controller
 
             return back()->with('success', 'deposite created successfully!');
         } catch (\Exception $e) {
-            toast($e->getMessage(), 'error');
-
+            toast('Something went wrong' , 'error');
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
     }
@@ -75,7 +74,7 @@ class DepositeController extends Controller
             toast('deposite updated successfully!', 'success');
             return redirect()->route('deposite.index')->with('success', 'deposite updated successfully!');
         } catch (\Exception $e) {
-            toast($e->getMessage(), 'error');
+            toast('Something went wrong' , 'error');
 
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }

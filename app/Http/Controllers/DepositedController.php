@@ -63,8 +63,8 @@ class DepositedController extends Controller
             return back()->with('success', 'deposite created successfully!');
         } catch (Exception $e) {
             DB::rollBack();
-            dd($e);
-            toast($e->getMessage(), 'error');
+            toast('Something went wrong' , 'error');
+
 
             return back()->withInput()->with('error', $e);
         }

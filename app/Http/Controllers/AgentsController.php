@@ -32,13 +32,13 @@ class AgentsController extends Controller
     public function store(StoreAgentsRequest $request)
     {
         try {
-           $agents =  new Agents($request->all());
-           $agents->save();
+            $agents =  new Agents($request->all());
+            $agents->save();
             toast('Agent created successfully!', 'success');
             return back()->with('success', 'Added successfully');
         } catch (Exception $th) {
-            dd($th);
-                return back()->withInput()->with('error', 'Failed To Create. !!');
+            toast('Failed To Create. !!', 'error');
+            return back()->withInput()->with('error', 'Failed To Create. !!');
         }
     }
 
@@ -47,14 +47,13 @@ class AgentsController extends Controller
      */
     public function show($id)
     {
-        $agents = Agents::with(['customers'])->where('id',$id)->first();
-        $TotalCollection = $agents->customers->map(function($customer) {
+        $agents = Agents::with(['customers'])->where('id', $id)->first();
+        $TotalCollection = $agents->customers->map(function ($customer) {
             return $customer->deposits->sum('deposite_amount');
         })->sum();
         $earning = $agents->percentage / 100 * $TotalCollection;
         $agents->update(['amount' => $earning]);
         return view('agents.show', compact('agents', 'TotalCollection', 'earning'));
-
     }
 
     /**
@@ -64,7 +63,6 @@ class AgentsController extends Controller
     {
         $agents = Agents::find($id);
         return view('agents.edit', compact('agents'));
-
     }
 
     /**
@@ -77,7 +75,6 @@ class AgentsController extends Controller
         toast('Agents updated successfully!', 'success');
 
         return redirect()->route('agents.index')->with('success', 'agents updated successfully!');
-    
     }
 
     /**
@@ -89,20 +86,20 @@ class AgentsController extends Controller
         toast('agents deleted successfully!', 'success');
 
         return redirect()->route('agents.index')->with('success', 'agents deleted successfully!');
-  
     }
 
-    public function search($search){
-          // Fetch options based on the selected customer name
-          $customer = Agents::select('id', 'name')->where('name', 'like', '%' . $search . '%')->get();
+    public function search($search)
+    {
+        // Fetch options based on the selected customer name
+        $customer = Agents::select('id', 'name')->where('name', 'like', '%' . $search . '%')->get();
 
-          if ($customer) {
-              // Assume 'options' is a field in the Customer model
-              $options = $customer;
-  
-              return response()->json(['options' => $options]);
-          }
-  
-          return response()->json(['options' => []]);
+        if ($customer) {
+            // Assume 'options' is a field in the Customer model
+            $options = $customer;
+
+            return response()->json(['options' => $options]);
+        }
+
+        return response()->json(['options' => []]);
     }
 }

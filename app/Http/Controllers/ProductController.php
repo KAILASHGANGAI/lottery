@@ -58,7 +58,7 @@ class ProductController extends Controller
 
             return redirect()->route('products.index')->with('success', 'product created successfully!');
         } catch (\Exception $e) {
-            toast($e->getMessage(), 'error');
+            toast('Something went wrong' , 'error');
 
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
@@ -109,7 +109,7 @@ class ProductController extends Controller
 
             return redirect()->route('products.index')->with('success', 'Product updated successfully');
         } catch (Exception $e) {
-            toast($e->getMessage(), 'error');
+            toast('Something went wrong' , 'error');
 
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
@@ -134,6 +134,8 @@ class ProductController extends Controller
 
             return  response()->json($products);
         } catch (Exception $e) {
+            toast('Something went wrong' , 'error');
+
             return redirect()->json(['error' => $e->getMessage()]);
         }
     }

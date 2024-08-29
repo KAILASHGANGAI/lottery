@@ -36,7 +36,8 @@ class OrderController extends Controller
 
             return redirect()->route('orders.index')->with('success', 'Order created successfully!');
         } catch (\Throwable $th) {
-            //throw $th;
+            toast('Something went wrong' , 'error');
+            return redirect()->back()->with('error', 'Something went wrong');
         }
     }
 

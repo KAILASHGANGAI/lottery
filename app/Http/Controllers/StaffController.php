@@ -57,7 +57,7 @@ class StaffController extends Controller
 
             return redirect()->route('staff.index')->with('success', 'Staff created successfully!');
         } catch (\Exception $e) {
-            toast($e->getMessage(), 'error');
+            toast('Something went wrong' , 'error');
 
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
@@ -113,7 +113,7 @@ class StaffController extends Controller
 
             return redirect()->route('staff.index')->with('success', 'staff updated successfully!');
         } catch (\Exception $e) {
-            toast($e->getMessage(), 'error');
+            toast('Something went wrong' , 'error');
 
             return redirect()->back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }

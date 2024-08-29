@@ -37,6 +37,8 @@ class PosController extends Controller
 
             return response()->json(['statu s' => 'quantity updated']);
         } catch (Exception $e) {
+            toast('Something went wrong' , 'error');
+
             return response()->json(['error' => $e->getMessage()]);
         }
     }
@@ -65,6 +67,8 @@ class PosController extends Controller
             toast("Product added to card.", 'success');
             return response()->json(['message' => "product is ready to sale"]);
         } catch (Exception $e) {
+            toast('Something went wrong' , 'error');
+
             return response()->json(['message' => "something is wrong", 'error' => $e->getMessage()]);
         }
     }
@@ -80,6 +84,8 @@ class PosController extends Controller
                 return response()->json(['error' => 'Item not found in the cart'], 404);
             }
         } catch (\Exception $e) {
+            toast('Something went wrong' , 'error');
+
             return response()->json(['error' => $e->getMessage()]);
         }
     }
@@ -122,6 +128,8 @@ class PosController extends Controller
         } catch (\Exception $e) {
             // An error occurred, rollback the database transaction
             DB::rollBack();
+            toast('Something went wrong' , 'error');
+
             // Log the error or handle it in any way you prefer
             return response()->json(['error' => $e->getMessage()], 500);
         }
