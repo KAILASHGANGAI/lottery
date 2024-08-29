@@ -110,7 +110,7 @@
                  </a>
                  <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
 
-                     <a href="#" class="dropdown-item">
+                     <a href="{{ route('profile') }}" class="dropdown-item">
                          Profile
                      </a>
                      <div class="dropdown-divider"></div>
