@@ -6,6 +6,7 @@ use App\Models\Deposited;
 use App\Http\Requests\StoreDepositedRequest;
 use App\Http\Requests\UpdateDepositedRequest;
 use App\Models\Deposite;
+use App\Models\Owner;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -103,5 +104,10 @@ class DepositedController extends Controller
     public function destroy(Deposited $deposited)
     {
         //
+    }
+    public function bill( $id){
+        $deposited = Deposited::find($id);
+        $owner = Owner::first();
+        return view('deposites.bill',compact('deposited', 'owner'));
     }
 }

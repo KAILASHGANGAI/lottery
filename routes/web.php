@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/staff', StaffController::class);
     Route::resource('/deposite', DepositeController::class);
     Route::resource('/deposited', DepositedController::class);
+    Route::get('/deposited-bill/{id}', [DepositedController::class, 'bill'])->name('deposited.bill');
     Route::resource('/products', ProductController::class);
     Route::post('/products-search', [ProductController::class, 'search'])->name('product.search');
     Route::resource('categories', CategoryController::class);

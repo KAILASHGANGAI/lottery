@@ -56,11 +56,17 @@
 
                                             <td>
                                                 <a class="btn btn-info btn-sm"
-                                                href="{{ route('deposited.edit', $item->id) }}">
-                                                <i class="fas fa-pencil-alt">
-                                                </i>
-                                                Edit
-                                            </a>
+                                                    href="{{ route('deposited.edit', $item->id) }}">
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    Edit
+                                                </a>
+                                                <a class="btn btn-warning btn-sm"
+                                                    href="{{ route('deposited.bill', $item->id) }}">
+                                                    <i class="fas fa-print">
+                                                    </i>
+                                                    
+                                                </a>
                                                 {{-- @php
                                                     $todayDate = \Carbon\Carbon::now()->toDateString();
                                                 @endphp
