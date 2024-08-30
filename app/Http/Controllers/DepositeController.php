@@ -60,7 +60,7 @@ class DepositeController extends Controller
      */
     public function edit(Deposite $deposite)
     {
-        return view('deposites.edit', compact('deposite'));
+        // return view('deposites.edit', compact('deposite'));
     }
 
     /**

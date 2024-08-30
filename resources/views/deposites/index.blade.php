@@ -56,7 +56,7 @@
 
                                             <td>
                                                 <a class="btn btn-info btn-sm"
-                                                href="{{ route('deposite.edit', $item->id) }}">
+                                                href="{{ route('deposited.edit', $item->id) }}">
                                                 <i class="fas fa-pencil-alt">
                                                 </i>
                                                 Edit

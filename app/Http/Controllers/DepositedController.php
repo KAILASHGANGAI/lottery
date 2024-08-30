@@ -83,7 +83,7 @@ class DepositedController extends Controller
      */
     public function edit(Deposited $deposited)
     {
-        //
+        return view('deposites.edit', compact('deposited'));
     }
 
     /**
@@ -91,7 +91,10 @@ class DepositedController extends Controller
      */
     public function update(UpdateDepositedRequest $request, Deposited $deposited)
     {
-        //
+         
+        $deposited->update($request->all());
+        toast('deposite updated successfully!', 'success');
+        return back()->with('success', 'deposite updated successfully!');
     }
 
     /**
