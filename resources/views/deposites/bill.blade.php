@@ -50,7 +50,7 @@
 </head>
 
 <body>
-  <div style="margin-bottom: 20px">
+  <div style="margin-bottom: 7rem">
     <a class="link" class=" btn btn-primary " href="{{ url('/') }}">Go Home</a>
     <a class="link" class=" btn btn-secondary" href="{{ url()->previous() }}">Go Back</a>
   </div>
