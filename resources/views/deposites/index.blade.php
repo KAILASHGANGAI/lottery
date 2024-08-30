@@ -55,6 +55,12 @@
                                             <td>{{ $item->dod }}</td>
 
                                             <td>
+                                                <a class="btn btn-info btn-sm"
+                                                href="{{ route('deposite.edit', $item->id) }}">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                                Edit
+                                            </a>
                                                 {{-- @php
                                                     $todayDate = \Carbon\Carbon::now()->toDateString();
                                                 @endphp
