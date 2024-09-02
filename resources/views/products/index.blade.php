@@ -1,4 +1,6 @@
 @extends('../layouts.app')
+@section('title', 'Products List')
+
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">

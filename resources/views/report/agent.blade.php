@@ -1,4 +1,5 @@
 @extends('../layouts.app')
+@section('title', ' Reports By Agent')
 
 <style>
     .table td,

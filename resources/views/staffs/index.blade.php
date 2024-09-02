@@ -1,4 +1,5 @@
 @extends('../layouts.app')
+@section('title', 'Staffs List')
 
 @section('content')
     <!-- Content Header (Page header) -->

@@ -1,5 +1,7 @@
 @extends('../layouts.app')
 
+@section('title', 'Agents List')
+
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -50,7 +52,7 @@
                                             <td>{{ $item->name }} </td>
                                             <td>{{ $item->phone }}</td>
                                             <td>{{ $item->percentage }}</td>
-                                            <td>{{ $item->customer_count }}</td>
+                                            <td>{{ $item->customers->count() }}</td>
                                             <td>{{ $item->amount ?? '-' }}</td> 
                                             <td>{{ $item->reg_date }}</td> 
                                        

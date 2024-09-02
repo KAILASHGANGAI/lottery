@@ -1,4 +1,6 @@
 @extends('../layouts.app')
+@section('title', 'Update Deposite')
+
 @section('content')
     <section class="content-header">
         <div class="container-fluid">

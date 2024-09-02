@@ -1,4 +1,6 @@
 @extends('../layouts.app')
+@section('title', 'Add Agents')
+
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
