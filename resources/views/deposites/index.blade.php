@@ -49,7 +49,7 @@
                                     @foreach ($deposites as $key => $item)
                                         <tr>
                                             <td>{{ ++$key }}</td>
-                                            <td>{{ $item->customer->name }} </td>
+                                            <td>{{ @$item->customer->name ?? '-' }} </td>
                                             <td>{{ $item->cid }} </td>
                                             <td>{{ $item->deposite_amount }}</td>
                                             <td>{{ $item->fine_amount }}</td>

@@ -18,7 +18,7 @@ class DepositeController extends Controller
     public function index()
     {
         $deposites = Deposited::latest()->get();
-        dd($deposites);
+        
         return view('deposites.index', compact('deposites'));
     }
 
