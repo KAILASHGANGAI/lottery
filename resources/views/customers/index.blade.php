@@ -161,7 +161,7 @@
                 "autoWidth": false,
                 "buttons": ["csv", "excel", "pdf", "print"], // Export buttons
                 "dom": 'Bfrtip', // Ensure buttons are displayed with length change
-                "pageLength": 20, // Default page length
+                "pageLength": 10, // Default page length
                 "lengthMenu": [
                     [10, 25, 50, 100, -1],
                     [10, 25, 50, 100, "All"]
