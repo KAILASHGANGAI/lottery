@@ -29,7 +29,7 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="customerTable" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
@@ -43,7 +43,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($customers as $key => $item)
+                                    {{-- @foreach ($customers as $key => $item)
                                         <tr>
                                             <td>{{ ++$key }}</td>
                                             <td>{{ ucfirst($item->name) }} </td>
@@ -80,7 +80,7 @@
                                                 </a>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @endforeach --}}
 
 
 
@@ -112,4 +112,63 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+@endsection
+@section('script2')
+
+    <!-- Required for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+    <script>
+        $(function() {
+            $("#customerTable").DataTable({
+                "serverSide": true,
+                "processing": true,
+                "ajax": {
+                    "url": "{{ route('customer.ajax') }}", // Update with your server-side URL
+                    "type": "GET",
+                    "data": function(d) {
+                        // Additional data you can pass to the server if needed
+                        d.customFilter = $('#customFilter').val(); // Example of passing extra filters
+                    }
+                },
+                "columns": [{
+                        "data": "id"
+                    },
+                    {
+                        "data": "name"
+                    },
+                    {
+                        "data": "cid"
+                    },
+                    {
+                        "data": "agent"
+                    },
+                    {
+                        "data": "phone"
+                    },
+                    {
+                        "data": "address"
+                    },
+                    {
+                        "data": "action",
+                        orderable: false,
+                        searchable: false
+                    },
+                ],
+                "responsive": true,
+                "lengthChange": true, // Enables dropdown to change number of rows
+                "autoWidth": false,
+                "buttons": ["csv", "excel", "pdf", "print"], // Export buttons
+                "dom": 'Bfrtip', // Ensure buttons are displayed with length change
+                "pageLength": 20, // Default page length
+                "lengthMenu": [
+                    [10, 25, 50, 100, -1],
+                    [10, 25, 50, 100, "All"]
+                ]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        });
+    </script>
+
 @endsection

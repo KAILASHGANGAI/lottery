@@ -23,18 +23,55 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use Yajra\DataTables\Facades\DataTables;
 
 class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-
         $customers = Customer::with(['provision:id,provision_name', 'district:id,districts_name', 'gaupalika:id,gaupalika_name'])->get();
-        return view('/customers.index', compact('customers'));
+        return view('/customers.index');
+    }
+
+    public function customerAjax(Request $request)
+    {
+        $customers = Customer::with(['provision:id,provision_name', 'district:id,districts_name', 'gaupalika:id,gaupalika_name'])->get();
+
+        return DataTables::of($customers)
+            ->editColumn('address', function ($customer) {
+                return ucfirst($customer->provision->provision_name) . ", " . ucfirst($customer->district->districts_name) . ", " . ucfirst($customer->gaupalika->gaupalika_name) . "-" . $customer->ward_no;
+            })
+            ->addColumn('agent', function ($customer) {
+
+                return ucfirst($customer->agent->name ?? '-');
+            })
+            ->addColumn('action', function ($customer) {
+                $viewUrl = route('customer.show', $customer->id);
+                $editUrl = route('customer.edit', $customer->id);
+                $deleteUrl = route('customer.destroy', $customer->id);
+
+                $viewBtn = '<a href="' . $viewUrl . '" class="btn btn-primary btn-sm">
+                                <i class="fas fa-folder"></i> View
+                            </a>';
+                $editBtn = '<a href="' . $editUrl . '" class="btn btn-info btn-sm">
+                                <i class="fas fa-pencil-alt"></i> Edit
+                            </a>';
+                $deleteForm = '<form id="delete-form-' . $customer->id . '" action="' . $deleteUrl . '" method="POST" style="display:none;">
+                                ' . csrf_field() . '
+                                ' . method_field('DELETE') . '
+                               </form>';
+                $deleteBtn = '<a href="#" class="btn btn-danger btn-sm" onclick="event.preventDefault(); document.getElementById(\'delete-form-' . $customer->id . '\').submit();">
+                                <i class="fas fa-trash"></i> Delete
+                              </a>';
+
+                return $viewBtn . ' ' . $editBtn . ' ' . $deleteBtn . $deleteForm;
+            })
+
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     /**

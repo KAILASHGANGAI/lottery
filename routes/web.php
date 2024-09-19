@@ -40,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/',[DashboardController::class, 'index'])->name('home');
 
     Route::resource('/customer', CustomerController::class);
+    Route::get('/customer-ajax', [CustomerController::class, 'customerAjax'])->name('customer.ajax');
     Route::get('/get-options/{customerName}', [CustomerController::class, 'getOptions']);
     Route::post('/get-customer', [CustomerController::class, 'getcustomer']);
 
