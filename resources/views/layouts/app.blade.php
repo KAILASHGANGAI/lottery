@@ -129,12 +129,20 @@
         });
         window.onload = function() {
             var mainInput = document.getElementById("nepali-datepicker");
-            mainInput.nepaliDatePicker();
+            mainInput.nepaliDatePicker({
+                readOnlyInput: true,
+                ndpYear: true,
+                ndpMonth: true,
+                ndpYearCount: 10
+            });
             var mainInput2 = document.getElementById("nepali-datepicker2");
-            mainInput2.nepaliDatePicker();
+            mainInput2.nepaliDatePicker({
+                readOnlyInput: true,
+                ndpYear: true,
+                ndpMonth: true,
+                ndpYearCount: 10
+            });
         };
-
-        
     </script>
 </body>
 
